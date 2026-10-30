@@ -47,10 +47,37 @@ const LOGOS: Record<string, StackOrb["logo"]> = {
   LeetCode: { src: "/logos/leetcode.svg", color: "FFA116", label: "LeetCode logo" },
   AtCoder: { src: "/logos/atcoder.png", color: "FFFFFF", label: "AtCoder logo" },
   Codechef: { src: "/logos/codechef.svg", color: "5B4638", label: "CodeChef logo" },
-  OS: { color: "00FF41", label: "Operating Systems symbol" },
-  DBMS: { color: "0072C6", label: "Database Systems symbol" },
-  OOP: { color: "00FF41", label: "Object-Oriented Programming symbol" },
-  Networks: { color: "F3F7FF", label: "Computer Networks symbol" }
+  OS: { src: "/logos/OS_logo.webp", color: "00FF41", label: "Operating Systems symbol" },
+  DBMS: { src: "/logos/DBMS_logo.webp", color: "0072C6", label: "Database Systems symbol" },
+  OOP: { src: "/logos/OOPS_logo.webp", color: "00FF41", label: "Object-Oriented Programming symbol" },
+  Networks: { src: "/logos/CN_logo.webp", color: "F3F7FF", label: "Computer Networks symbol" }
+};
+
+// Self-assessed proficiency ratings out of 5
+const PROFICIENCY: Record<string, number> = {
+  "C++": 5,
+  C: 3,
+  Python: 3,
+  JavaScript: 4,
+  TypeScript: 2,
+  "React.js": 4,
+  "Next.js": 4,
+  GSAP: 2,
+  "Tailwind CSS": 4,
+  "Node.js": 3,
+  "Spring Boot": 4,
+  PostgreSQL: 4,
+  MySQL: 5,
+  Azure: 3,
+  Docker: 2,
+  Kubernetes: 2,
+  Git: 3,
+  GitHub: 3,
+  GitLab: 2,
+  OS: 5,
+  DBMS: 4,
+  OOP: 5,
+  Networks: 4
 };
 
 function buildStackOrbs(): StackOrb[] {
@@ -66,6 +93,7 @@ function buildStackOrbs(): StackOrb[] {
       skillName: skill.name,
       logo: LOGOS[skill.name]
     })),
+
     ...competitiveProfiles.map((profile, index) => ({
       id: `profile-${profile.platform}`,
       label: profile.platform,
@@ -73,7 +101,11 @@ function buildStackOrbs(): StackOrb[] {
       title: profile.platform,
       meta: `${profile.tier} / ${profile.rating}`,
       detail: `${profile.handle} is Yuvraj's ${profile.platform} profile, showing a ${profile.tier.toLowerCase()} level competitive programming signal.`,
-      tone: (index % 3 === 0 ? "green" : index % 3 === 1 ? "blue" : "silver") as StackOrb["tone"],
+      tone: (index % 3 === 0
+        ? "green"
+        : index % 3 === 1
+          ? "blue"
+          : "silver") as StackOrb["tone"],
       href: profile.href,
       logo: LOGOS[profile.platform]
     }))
@@ -81,29 +113,44 @@ function buildStackOrbs(): StackOrb[] {
 }
 
 const STACK_ORBS = buildStackOrbs();
+
 const STACK_LOGO_PRELOAD_SOURCES = Array.from(
-  new Set(STACK_ORBS.map((item) => item.logo?.src).filter((src): src is string => Boolean(src)))
+  new Set(
+    STACK_ORBS.map((item) => item.logo?.src).filter(
+      (src): src is string => Boolean(src)
+    )
+  )
 );
 
 function StackReadoutLogo({ item }: { item: StackOrb }) {
   const [hasLogoError, setHasLogoError] = useState(false);
+
   const logo = item.logo;
   const logoSrc = logo?.src ?? null;
+
   const initials = item.title
-    .split(/\s|\./)
+    .split(/\s+/)
     .filter(Boolean)
     .map((word) => word[0])
     .join("")
     .slice(0, 3)
     .toUpperCase();
-  const logoStyle = { "--logo-color": `#${logo?.color ?? "f6f8fb"}` } as CSSProperties;
+
+  const logoStyle = {
+    "--logo-color": `#${logo?.color ?? "f6f8fb"}`
+  } as CSSProperties;
 
   useEffect(() => {
     setHasLogoError(false);
   }, [item.id, logoSrc]);
 
   return (
-    <div className={`readout-logo ${item.tone}`} aria-label={logo?.label ?? `${item.title} symbol`} role="img" style={logoStyle}>
+    <div
+      className={`readout-logo ${item.tone}`}
+      aria-label={logo?.label ?? `${item.title} symbol`}
+      role="img"
+      style={logoStyle}
+    >
       {logoSrc && !hasLogoError ? (
         <img
           key={logoSrc}
@@ -116,7 +163,16 @@ function StackReadoutLogo({ item }: { item: StackOrb }) {
           width={56}
         />
       ) : null}
-      <span className={logoSrc && !hasLogoError ? "logo-fallback hidden" : "logo-fallback"}>{initials}</span>
+
+      <span
+        className={
+          logoSrc && !hasLogoError
+            ? "logo-fallback hidden"
+            : "logo-fallback"
+        }
+      >
+        {initials}
+      </span>
     </div>
   );
 }
@@ -135,8 +191,10 @@ const StackOrbButton = memo(function StackOrbButton({
   onDeactivate: () => void;
 }) {
   const labelLength = item.label.replace(/[^a-z0-9]/gi, "").length;
+
   const size = Math.min(132, Math.max(84, 72 + labelLength * 5.2));
   const depth = Math.min(1.12, 0.9 + labelLength * 0.018);
+
   const style = {
     "--orb-index": index,
     "--orb-size": `${size}px`,
@@ -147,7 +205,11 @@ const StackOrbButton = memo(function StackOrbButton({
 
   return (
     <button
-      className={isHighlighted ? `stack-orb ${item.tone} active` : `stack-orb ${item.tone}`}
+      className={
+        isHighlighted
+          ? `stack-orb ${item.tone} active`
+          : `stack-orb ${item.tone}`
+      }
       aria-label={`Inspect ${item.label}`}
       onBlur={onDeactivate}
       onFocus={() => onActivate(item)}
@@ -172,22 +234,36 @@ export function SkillsSection({
   const [activeItem, setActiveItem] = useState<StackOrb>(STACK_ORBS[0]);
   const [highlightedItemId, setHighlightedItemId] = useState<string | null>(null);
   const [readoutTilt, setReadoutTilt] = useState({ x: 0, y: 0 });
+
   const activeStats = useMemo(() => {
-    const detailLength = Math.min(96, Math.max(34, activeItem.detail.length));
-    const labelWeight = Math.min(100, Math.max(42, activeItem.label.replace(/[^a-z0-9]/gi, "").length * 9));
+    const rating = activeItem.skillName
+      ? PROFICIENCY[activeItem.skillName]
+      : undefined;
 
     return [
-      { label: "Layer", value: activeItem.category.split(" ")[0] },
-      { label: "Signal", value: activeItem.meta },
-      { label: "Effect", value: "Tilt" }
+      {
+        label: "Layer",
+        value: activeItem.category.split(" ")[0]
+      },
+      {
+        label: "Signal",
+        value: activeItem.meta
+      },
+      {
+        label: "Proficiency",
+        value: rating
+      }
     ];
   }, [activeItem]);
 
-  const activate = useCallback((item: StackOrb) => {
-    setActiveItem(item);
-    setHighlightedItemId(item.id);
-    setHoveredSkill(item.skillName ?? item.title);
-  }, [setHoveredSkill]);
+  const activate = useCallback(
+    (item: StackOrb) => {
+      setActiveItem(item);
+      setHighlightedItemId(item.id);
+      setHoveredSkill(item.skillName ?? item.title);
+    },
+    [setHoveredSkill]
+  );
 
   const deactivate = useCallback(() => {
     setHighlightedItemId(null);
@@ -196,6 +272,7 @@ export function SkillsSection({
 
   function tiltReadout(event: PointerEvent<HTMLDivElement>) {
     const rect = event.currentTarget.getBoundingClientRect();
+
     const x = (event.clientX - rect.left) / rect.width - 0.5;
     const y = (event.clientY - rect.top) / rect.height - 0.5;
 
@@ -209,20 +286,33 @@ export function SkillsSection({
     <section className="story-section stack-section" id="stack">
       <div className="stack-logo-preload" aria-hidden="true">
         {STACK_LOGO_PRELOAD_SOURCES.map((src) => (
-          <img alt="" decoding="async" height={1} key={src} src={src} width={1} />
+          <img
+            alt=""
+            decoding="async"
+            height={1}
+            key={src}
+            src={src}
+            width={1}
+          />
         ))}
       </div>
+
       <RevealText className="copy-block">
         <SectionEyebrow>Tech Stack Explosion</SectionEyebrow>
+
         <h2>Systems stack, exposed.</h2>
+
         <p>
-          Languages, frameworks, backend systems, cloud platforms, coursework, and competitive profiles assembled into a
-          live engineering field.
+          Languages, frameworks, backend systems, cloud platforms, coursework,
+          and competitive profiles assembled into a live engineering field.
         </p>
       </RevealText>
 
       <div className="stack-lab">
-        <div className="orb-field" aria-label="Interactive technology and competitive programming stack">
+        <div
+          className="orb-field"
+          aria-label="Interactive technology and competitive programming stack"
+        >
           {STACK_ORBS.map((item, index) => (
             <StackOrbButton
               index={index}
@@ -240,30 +330,91 @@ export function SkillsSection({
           aria-live="polite"
           onPointerLeave={() => setReadoutTilt({ x: 0, y: 0 })}
           onPointerMove={tiltReadout}
-          style={{ "--readout-rotate-x": `${readoutTilt.x}deg`, "--readout-rotate-y": `${readoutTilt.y}deg` } as CSSProperties}
+          style={
+            {
+              "--readout-rotate-x": `${readoutTilt.x}deg`,
+              "--readout-rotate-y": `${readoutTilt.y}deg`
+            } as CSSProperties
+          }
         >
           <StackReadoutLogo item={activeItem} />
+
           <div className="readout-kicker">
             <span>{activeItem.category}</span>
             <i>Live node inspection</i>
           </div>
+
           <h3>{activeItem.title}</h3>
+
           <strong>{activeItem.meta}</strong>
+
           <p>{activeItem.detail}</p>
-          <div className="readout-metric-grid" aria-label={`${activeItem.title} signal metrics`}>
-            {activeStats.map((stat) => (
-              <div key={stat.label}>
-                <span>{stat.label}</span>
-                <strong>{stat.value}</strong>
-              </div>
-            ))}
+
+          <div
+            className="readout-metric-grid"
+            aria-label={`${activeItem.title} signal metrics`}
+          >
+            {activeStats.map((stat) => {
+              const rating =
+                typeof stat.value === "number" ? stat.value : 0;
+
+              return (
+                <div key={stat.label}>
+                  <span>{stat.label}</span>
+
+                  {stat.label === "Proficiency" && rating > 0 ? (
+                    <strong
+                      aria-label={`${rating} out of 5 stars`}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "3px",
+                        whiteSpace: "nowrap"
+                      }}
+                    >
+                      {Array.from({ length: 5 }, (_, index) => {
+                        const isFilled = index < rating;
+
+                        return (
+                          <span
+                            key={index}
+                            style={{
+                              display: "inline-block",
+                              fontSize: "19px",
+                              lineHeight: 1,
+                              color: isFilled
+                                ? "#FFC83D"
+                                : "rgba(148, 163, 184, 0.28)",
+                              textShadow: isFilled
+                                ? "0 0 5px rgba(255, 200, 61, 0.75), 0 0 12px rgba(255, 200, 61, 0.35)"
+                                : "none",
+                              transform: isFilled ? "scale(1.08)" : "scale(1)"
+                            }}
+                          >
+                            {isFilled ? "★" : "☆"}
+                          </span>
+                        );
+                      })}
+                    </strong>
+                  ) : (
+                    <strong>
+                      {stat.label === "Proficiency"
+                        ? "N/A"
+                        : stat.value}
+                    </strong>
+                  )}
+                </div>
+              );
+            })}
           </div>
+
           <div className="readout-spectrum" aria-hidden="true">
             <i />
             <i />
             <i />
             <i />
           </div>
+
           {activeItem.href ? (
             <a href={activeItem.href} rel="noreferrer" target="_blank">
               Open Profile
