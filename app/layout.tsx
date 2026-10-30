@@ -3,7 +3,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { competitiveProfiles, projects, siteProfile, socialLinks } from "@/data/portfolio";
 import { getSiteUrl, seoDescription, seoKeywords } from "./seo";
-// @ts-expect-error Next.js loads global CSS imports at runtime.
+
 import "./globals.css";
 
 const siteUrl = getSiteUrl();
@@ -114,7 +114,7 @@ export default function RootLayout({
               hasCredential: [
                 "Codechef 5 stars - 2034",
                 "LeetCode Knight - 2042",
-                "AtCoder 4 Star - 1700"
+                "AtCoder 4 Star - 512"
               ],
               mainEntityOfPage: {
                 "@type": "WebPage",
