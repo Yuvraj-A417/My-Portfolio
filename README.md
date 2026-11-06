@@ -1,28 +1,28 @@
-# Aditya Srivastava - Cinematic Engineering Portfolio
+# Yuvraj Tiwary - Cinematic Engineering Portfolio
 
-An ultra-premium, scroll-driven portfolio for **Aditya Srivastava**, Software Development Engineer and System Architect. The site is designed as a luxury-tech product launch blended with an interactive engineering blueprint: cinematic motion, WebGL architecture visuals, recruiter-ready case studies, competitive programming signals, and production-grade SEO/performance hardening.
+An ultra-premium, scroll-driven portfolio for **Yuvraj Tiwary**, Software Development Engineer and System Architect. The site is designed as a luxury-tech product launch blended with an interactive engineering blueprint: cinematic motion, WebGL architecture visuals, recruiter-ready case studies, competitive programming signals, and production-grade SEO/performance hardening.
 
-Live site: [portfolio-omega-five-q0du9fmhnl.vercel.app](https://portfolio-omega-five-q0du9fmhnl.vercel.app/)
+Live site: [my-portfolio-yuvraj-7f72.vercel.app/](https://my-portfolio-yuvraj-7f72.vercel.app/)
 
-Resume: [View Resume](https://drive.google.com/file/d/1zBbPLYJlFTyngobXBBWxughLH_HncRXT/view?usp=sharing)
+Resume: [View Resume](https://drive.google.com/file/d/1dSfXDfcK14qpaoX3_lazfjNp4KAZ1_DW/view)
 
-LinkedIn: [Aditya Srivastava](https://www.linkedin.com/in/aditya-srivastava-12476524a/)
+LinkedIn: [Yuvraj Tiwary](https://www.linkedin.com/in/yuvraj-tiwary-426279254)
 
-GitHub: [Adi1816](https://github.com/Adi1816)
+GitHub: [Adi1816](https://github.com/yuvrajtiwary-bitmesraece)
 
 ---
 
 ## Overview
 
-This portfolio is built to communicate engineering depth in the first few seconds, then reward deeper exploration through structured storytelling. It presents Aditya's profile across six scroll-linked stages:
+This portfolio is built to communicate engineering depth in the first few seconds, then reward deeper exploration through structured storytelling. It presents Yuvraj's profile across six scroll-linked stages:
 
 | Stage | Purpose | Experience Beat |
 | --- | --- | --- |
-| Initialization | Establish identity and seniority signal | Hero, Oracle status, FTE offers, cinematic system core |
-| Engine Room | Explain academic and systems foundation | BIT Mesra, Computer Science, CGPA 8.71, marquee proof strip |
+| Initialization | Establish identity and seniority signal | Hero, UKG status, cinematic system core |
+| Engine Room | Explain academic and systems foundation | BIT Mesra, Electronics, CGPA 7.59, marquee proof strip |
 | Stack Explosion | Make skills interactive and memorable | 3D-like tech bubbles, live readout cards, competitive profiles |
-| Architectural Timeline | Show professional impact | Oracle, DocuSign, TLE Eliminators with measured outcomes |
-| Feature Showcase | Present flagship projects as case studies | AI Mock Interview, SpecPilot, Fresher's Guide, Text2Mantra |
+| Architectural Timeline | Show professional impact | UKG, ECE SIPAR with measured outcomes |
+| Feature Showcase | Present flagship projects as case studies | AI Mock Interview, PixelGenie, NetSentinelX |
 | System Handshake | Convert interest into action | Resume, email, social links, recruiter command surface |
 
 The result is not a static resume page. It is a high-signal interactive system that demonstrates frontend craft, product taste, performance awareness, and engineering narrative design.
@@ -33,65 +33,40 @@ The result is not a static resume page. It is a high-signal interactive system t
 
 ### Professional
 
-- **Current Role:** Software Development Engineer at Oracle, OSDMC
-- **Location:** Bangalore, India
+- **Current Role:** Software Development Engineer at UKG, API Gateway
+- **Location:** Noida, India
 - **Positioning:** Backend systems, AI-native products, platform workflows, engineering interfaces
-- **FTE Offers:** Flipkart, Cisco, Oracle
 
 ### Education
 
 - **Institute:** Birla Institute of Technology, Mesra
-- **Discipline:** Computer Science
-- **CGPA:** 8.71
+- **Discipline:** Electronics
+- **CGPA:** 7.59
 - **Core Coursework:** Operating Systems, DBMS, Object-Oriented Programming, Computer Networks
 
 ### Competitive Programming
 
 | Platform | Handle | Tier | Rating / Signal |
 | --- | --- | --- | --- |
-| Codeforces | [ocullus_repelo](https://codeforces.com/profile/ocullus_repelo) | Expert | 1749 |
-| LeetCode | [adi_1618](https://leetcode.com/u/adi_1618/) | Knight | 1927 |
-| AtCoder | [Adi_1816](https://atcoder.jp/users/Adi_1816) | 4 Star | 1700 |
-| CodeChef | [adiedits_1816](https://www.codechef.com/users/adiedits_1816) | Competitive Programmer | Profile |
+| LeetCode | [Baabu_Bhaiya_Ki_Jai](https://leetcode.com/u/Baabu_Bhaiya_Ki_Jai/) | Knight | 2042 |
+| AtCoder | [Yuvraj_2004](https://atcoder.jp/users/Yuvraj_2004) | 8 Kyu | 512 |
+| CodeChef | [bhaiya_2004](https://www.codechef.com/users/bhaiya_2004) | 5 stars | 2034 |
 
 ---
 
 ## Experience
 
-### Oracle
+### UKG
 
-**Software Development Engineer - OSDMC**  
-**Jan 2026 - Present**
+**Software Engineer Intern — API Gateway**  
+**Jan 2026 - Jul 2026**
 
-- Refactored OSDMC backend flows.
-- Delivered Kafka-WebSocket integration.
-- Positioned around enterprise backend reliability.
-- Highlight metric: **100% bug-free integration**.
+- Developed API Gateway monitoring and reliability workflows using Apigee X and GCP.
+- Built Splunk dashboards to track API errors and distinguish gateway failures from backend issues.
+- Automated tenant testing and incident workflows using Selenium, Splunk, JIRA, Nginx.
+- Highlight metric: **62 JIRA defects and incidents tracked**.
 
-Stack signals: `Java`, `Spring Boot`, `Kafka`, `WebSocket`, `OSDMC`
-
-### DocuSign
-
-**Engineering Internship**  
-**May 2025 - Aug 2025**
-
-- Built Azure DevOps delivery improvements.
-- Worked on OTP-based identity verification.
-- Improved release and deployment workflow.
-- Highlight metric: **20% faster deployments**.
-
-Stack signals: `Azure DevOps`, `OTP`, `Identity`, `CI/CD`
-
-### TLE Eliminators
-
-**Competitive Programming Mathematics Tutor**  
-**Aug 2024 - Dec 2024**
-
-- Delivered instruction to 200+ beginners.
-- Strengthened number theory, combinatorics, and Codeforces problem-solving foundations.
-- Highlight metric: **40% rating enhancement**.
-
-Stack signals: `Number Theory`, `Combinatorics`, `Codeforces`, `Teaching`
+Stack signals: `Java`, `Apigee X`, `GCP`, `Splunk`, `Jenkins`, `Selenium`, `API Gateway`
 
 ---
 
@@ -116,56 +91,42 @@ Key product signals:
 - Performance report loop
 - Structured repeat-practice workflow
 
-### SpecPilot
+### PixelGenie
 
-**Stack:** Next.js + GenAI + OpenAPI  
-**Metric:** Contract-grounded test handoff  
-**Live:** [specpilot-ruby.vercel.app](https://specpilot-ruby.vercel.app)  
-**Source:** [github.com/Adi1816/specpilot](https://github.com/Adi1816/specpilot)
+**Stack:** PyTorch + Stable Diffusion + CLIP + VGG19  
+**Metric:** Prompt-to-image generation and semantic alignment evaluation  
+**Live:** [colab.research.google.com](https://colab.research.google.com/drive/1Hyy3RaEJj0XGzTMUBbF8bCO92T-fPhwP?usp=sharing)  
+**Source:** [github.com/yuvrajtiwary-bitmesraece/PixelGenie](https://github.com/yuvrajtiwary-bitmesraece/PixelGenie)
 
-SpecPilot is a contract-grounded API testing copilot. It turns an OpenAPI or Swagger document into a scoped test suite, runs those checks against a live API, and produces a bug-ready markdown handoff for issues, PRs, and QA reports.
-
-Key product signals:
-
-- OpenAPI / Swagger contract grounding
-- Live API execution evidence
-- AI-assisted but reproducible workflow
-- Markdown bug handoff
-- Flagship GenAI portfolio project
-
-### Fresher's Guide
-
-**Stack:** HTML + CSS + JavaScript  
-**Metric:** College-life knowledge hub  
-**Live:** [adi1816.github.io/Fresher-s-Guide](https://adi1816.github.io/Fresher-s-Guide/)  
-**Source:** [github.com/Adi1816/Fresher-s-Guide](https://github.com/Adi1816/Fresher-s-Guide)
-
-Fresher's Guide is a one-stop virtual place for incoming students to resolve miniature doubts and make college life easier to navigate.
+PixelGenie is a Generative AI image creation and evaluation project that combines text-to-image generation, neural style transfer, and vision-language models. It uses Stable Diffusion v1.5 to generate images from natural-language prompts, CLIP to evaluate image-text similarity, and VGG19 for neural style transfer. The project also supports seed-controlled image generation, multiple prompt variations, and visual evaluation to explore how generated images align with their intended descriptions.
 
 Key product signals:
 
-- Student-first information architecture
-- GitHub Pages deployment
-- Lightweight static delivery
-- Campus-oriented onboarding flow
-- Simple, accessible discovery path
+- Stable Diffusion v1.5 text-to-image generation
+- CLIP-based image-text similarity evaluation
+- VGG19-based neural style transfer
+- Seed-controlled image generation for reproducible experiments
+- Multiple prompt-based image generation and visual comparisons
 
-### Text2Mantra
+### NetSentinelX
 
-**Stack:** Python + Poetic Structure Analysis  
-**Metric:** 10,000+ words processed  
-**Live:** [ccpbitmesra.in](https://ccpbitmesra.in/)  
-**Source:** [github.com/Adi1816/Text2Mantra](https://github.com/Adi1816/Text2Mantra)
+**Stack:** Python + Scikit-learn + XGBoost + NSL-KDD  
+**Metric:** ML-based Network Intrusion Detection  
+**Live:** [colab.research.google.com](https://colab.research.google.com/drive/1pZeHegKnFokKJvYJwMdYRulSFJUfvING?usp=sharing)  
+**Source:** [github.com/yuvrajtiwary-bitmesraece/NetSentinelX](https://github.com/yuvrajtiwary-bitmesraece/NetSentinelX)
 
-Text2Mantra is a Python-based Text2Mantra converter built with Prof. Niraj Kumar Singh for poetic structure analysis and research enablement. It supports matra-aware structure analysis and contributed to academic infrastructure connected to India's inaugural Centre of Excellence Lab in the domain.
+NetSentinelX is a machine learning-based network intrusion detection system that analyzes network traffic to distinguish legitimate connections from anomalous activity. Built using the NSL-KDD benchmark dataset, it compares supervised classification models with unsupervised anomaly detection to evaluate different approaches to identifying suspicious network behavior.
+
 
 Key product signals:
 
-- Poetic structure analysis
-- Matra conversion pipeline
-- 10,000+ words processed
-- Research tooling orientation
-- Academic impact for 1,000+ scholars and researchers
+- NSL-KDD network intrusion detection dataset
+- Five-model comparison: XGBoost, Random Forest, KNN, SVM, and Elliptic Envelope
+- Supervised classification + unsupervised anomaly detection
+- Feature encoding, normalization, and class imbalance handling
+- Precision, recall, F1-score, accuracy, and confusion matrix evaluation
+
+
 
 ---
 
@@ -255,9 +216,8 @@ Included categories:
 Each featured project has a stable hash slug:
 
 - `#ai-mock-interview`
-- `#specpilot`
-- `#freshers-guide`
-- `#text2mantra`
+- `#PixelGenie`
+- `#NetSentinelX`
 
 This allows direct navigation to a project case study while preserving the cinematic section layout.
 
@@ -292,7 +252,7 @@ The application includes production metadata and crawler support:
 
 SEO description:
 
-> Cinematic engineering portfolio of Aditya Srivastava, Software Development Engineer at Oracle, showcasing backend architecture, AI products, competitive programming, and systems craft.
+> Cinematic engineering portfolio of Yuvraj Tiwary, Software Development Engineer Intern at UKG, showcasing backend architecture, AI products, competitive programming, and systems craft.
 
 ---
 
@@ -540,20 +500,20 @@ This project has been checked for:
 
 ## Contact
 
-**Aditya Srivastava**  
+**Yuvraj Tiwary**  
 Software Development Engineer | System Architect  
-Bangalore, India
+Noida, India
 
-Email: [sriaditya16@gmail.com](mailto:sriaditya16@gmail.com)
+Email: [yuvrajtiwary699@gmail.com](mailto:yuvrajtiwary699@gmail.com)
 
-LinkedIn: [linkedin.com/in/aditya-srivastava-12476524a](https://www.linkedin.com/in/aditya-srivastava-12476524a/)
+LinkedIn: [linkedin.com/in/yuvraj-tiwary-426279254](https://www.linkedin.com/in/yuvraj-tiwary-426279254)
 
-GitHub: [github.com/Adi1816](https://github.com/Adi1816)
+GitHub: [github.com/yuvrajtiwary-bitmesraece](https://github.com/yuvrajtiwary-bitmesraece)
 
-Resume: [View Resume](https://drive.google.com/file/d/1zBbPLYJlFTyngobXBBWxughLH_HncRXT/view?usp=sharing)
+Resume: [View Resume](https://drive.google.com/file/d/1UrDfrCbWR0CteapxVeI_lvIMAaw4HoXX/view?usp=sharing)
 
 ---
 
 ## License
 
-This is a personal portfolio project for Aditya Srivastava. The source is public for review and inspiration, but the identity, copy, images, personal data, and portfolio presentation are specific to Aditya Srivastava.
+This is a personal portfolio project for Yuvraj Tiwary. The source is public for review and inspiration, but the identity, copy, images, personal data, and portfolio presentation are specific to Yuvraj Tiwary.
