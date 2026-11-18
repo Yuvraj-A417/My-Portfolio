@@ -112,9 +112,10 @@ export default function RootLayout({
               },
               sameAs,
               hasCredential: [
-                "Codechef 5 stars - 2034",
+                "CodeChef 5 stars - 2034",
                 "LeetCode Knight - 2042",
-                "AtCoder 4 Star - 512"
+                "CodeChef Starters 136 (Div 2) - global rank 26 of 12,000+",
+                "9 merged open-source pull requests (NestJS, Puppeteer, Stirling-PDF, Uptime Kuma)"
               ],
               mainEntityOfPage: {
                 "@type": "WebPage",

@@ -13,6 +13,7 @@ type StackOrb = {
   title: string;
   meta: string;
   detail: string;
+  proof?: string;
   tone: "blue" | "green" | "silver";
   href?: string;
   skillName?: string;
@@ -25,59 +26,41 @@ type StackOrb = {
 };
 
 const LOGOS: Record<string, StackOrb["logo"]> = {
+  // Skills without a logo here (Apigee, REST APIs, DSA) show their initials instead.
   "C++": { src: "/logos/cplusplus.svg", color: "00599C", label: "C++ logo" },
   C: { src: "/logos/c.svg", color: "A8B9CC", label: "C logo" },
   Python: { src: "/logos/python.svg", color: "3776AB", label: "Python logo" },
   JavaScript: { src: "/logos/javascript.svg", color: "F7DF1E", label: "JavaScript logo" },
   TypeScript: { src: "/logos/typescript.svg", color: "3178C6", label: "TypeScript logo" },
+  Java: { src: "/logos/openjdk.svg", color: "ED8B00", label: "Java logo" },
   "React.js": { src: "/logos/react.svg", color: "61DAFB", label: "React logo" },
   "Next.js": { src: "/logos/nextjs.svg", color: "FFFFFF", label: "Next.js logo" },
-  GSAP: { src: "/logos/gsap.svg", color: "88CE02", label: "GSAP logo" },
-  "Tailwind CSS": { src: "/logos/tailwindcss.svg", color: "06B6D4", label: "Tailwind CSS logo" },
   "Node.js": { src: "/logos/nodejs.svg", color: "5FA04E", label: "Node.js logo" },
+  NestJS: { src: "/logos/nestjs.svg", color: "E0234E", label: "NestJS logo" },
   "Spring Boot": { src: "/logos/springboot.svg", color: "6DB33F", label: "Spring Boot logo" },
   PostgreSQL: { src: "/logos/postgresql.svg", color: "4169E1", label: "PostgreSQL logo" },
-  MySQL: { src: "/logos/mysql.svg", color: "4479A1", label: "MySQL logo" },
-  Azure: { src: "/logos/azure.svg", color: "0078D4", label: "Microsoft Azure logo" },
-  Docker: { src: "/logos/docker.svg", color: "2496ED", label: "Docker logo" },
-  Kubernetes: { src: "/logos/kubernetes.svg", color: "326CE5", label: "Kubernetes logo" },
+  Drizzle: { src: "/logos/drizzle.svg", color: "C5F74F", label: "Drizzle ORM logo" },
+  Kafka: { src: "/logos/apachekafka.svg", color: "F3F7FF", label: "Apache Kafka logo" },
+  GCP: { src: "/logos/googlecloud.svg", color: "4285F4", label: "Google Cloud logo" },
+  Jenkins: { src: "/logos/jenkins.svg", color: "D24939", label: "Jenkins logo" },
+  Splunk: { src: "/logos/splunk.svg", color: "F3F7FF", label: "Splunk logo" },
+  Grafana: { src: "/logos/grafana.svg", color: "F46800", label: "Grafana logo" },
+  Nginx: { src: "/logos/nginx.svg", color: "009639", label: "NGINX logo" },
   Git: { src: "/logos/git.svg", color: "F05032", label: "Git logo" },
-  GitHub: { src: "/logos/github.svg", color: "FFFFFF", label: "GitHub logo" },
-  GitLab: { src: "/logos/gitlab.svg", color: "FC6D26", label: "GitLab logo" },
+  Linux: { src: "/logos/linux.svg", color: "FCC624", label: "Linux logo" },
+  "Claude Code": { src: "/logos/claude.svg", color: "D97757", label: "Claude logo" },
+  MCP: { src: "/logos/modelcontextprotocol.svg", color: "F3F7FF", label: "Model Context Protocol logo" },
+  "Gemini API": { src: "/logos/googlegemini.svg", color: "8E75B2", label: "Google Gemini logo" },
+  PyTorch: { src: "/logos/pytorch.svg", color: "EE4C2C", label: "PyTorch logo" },
+  TensorFlow: { src: "/logos/tensorflow.svg", color: "FF6F00", label: "TensorFlow logo" },
+  OpenCV: { src: "/logos/opencv.svg", color: "5C3EE8", label: "OpenCV logo" },
+  "Hugging Face": { src: "/logos/huggingface.svg", color: "FFD21E", label: "Hugging Face logo" },
   LeetCode: { src: "/logos/leetcode.svg", color: "FFA116", label: "LeetCode logo" },
-  AtCoder: { src: "/logos/atcoder.png", color: "FFFFFF", label: "AtCoder logo" },
-  Codechef: { src: "/logos/codechef.svg", color: "5B4638", label: "CodeChef logo" },
+  CodeChef: { src: "/logos/codechef.svg", color: "5B4638", label: "CodeChef logo" },
   OS: { src: "/logos/OS_logo.webp", color: "00FF41", label: "Operating Systems symbol" },
   DBMS: { src: "/logos/DBMS_logo.webp", color: "0072C6", label: "Database Systems symbol" },
   OOP: { src: "/logos/OOPS_logo.webp", color: "00FF41", label: "Object-Oriented Programming symbol" },
   Networks: { src: "/logos/CN_logo.webp", color: "F3F7FF", label: "Computer Networks symbol" }
-};
-
-// Self-assessed proficiency ratings out of 5
-const PROFICIENCY: Record<string, number> = {
-  "C++": 5,
-  C: 3,
-  Python: 3,
-  JavaScript: 4,
-  TypeScript: 2,
-  "React.js": 4,
-  "Next.js": 4,
-  GSAP: 2,
-  "Tailwind CSS": 4,
-  "Node.js": 3,
-  "Spring Boot": 4,
-  PostgreSQL: 4,
-  MySQL: 5,
-  Azure: 3,
-  Docker: 2,
-  Kubernetes: 2,
-  Git: 3,
-  GitHub: 3,
-  GitLab: 2,
-  OS: 5,
-  DBMS: 4,
-  OOP: 5,
-  Networks: 4
 };
 
 function buildStackOrbs(): StackOrb[] {
@@ -89,6 +72,7 @@ function buildStackOrbs(): StackOrb[] {
       title: skill.name,
       meta: skill.level,
       detail: skill.log,
+      proof: skill.proof,
       tone: skill.tone,
       skillName: skill.name,
       logo: LOGOS[skill.name]
@@ -100,7 +84,8 @@ function buildStackOrbs(): StackOrb[] {
       category: "COMPETITIVE PROGRAMMING",
       title: profile.platform,
       meta: `${profile.tier} / ${profile.rating}`,
-      detail: `${profile.handle} is Yuvraj's ${profile.platform} profile, showing a ${profile.tier.toLowerCase()} level competitive programming signal.`,
+      detail: profile.detail,
+      proof: profile.best,
       tone: (index % 3 === 0
         ? "green"
         : index % 3 === 1
@@ -235,26 +220,15 @@ export function SkillsSection({
   const [highlightedItemId, setHighlightedItemId] = useState<string | null>(null);
   const [readoutTilt, setReadoutTilt] = useState({ x: 0, y: 0 });
 
-  const activeStats = useMemo(() => {
-    const rating = activeItem.skillName
-      ? PROFICIENCY[activeItem.skillName]
-      : undefined;
-
-    return [
-      {
-        label: "Layer",
-        value: activeItem.category.split(" ")[0]
-      },
-      {
-        label: "Signal",
-        value: activeItem.meta
-      },
-      {
-        label: "Proficiency",
-        value: rating
-      }
-    ];
-  }, [activeItem]);
+  const activeStats = useMemo(
+    () =>
+      [
+        { label: "Layer", value: activeItem.category.split(" ")[0] },
+        { label: "Signal", value: activeItem.meta },
+        { label: "Proof", value: activeItem.proof }
+      ].filter((stat): stat is { label: string; value: string } => Boolean(stat.value)),
+    [activeItem]
+  );
 
   const activate = useCallback(
     (item: StackOrb) => {
@@ -303,8 +277,8 @@ export function SkillsSection({
         <h2>Systems stack, exposed.</h2>
 
         <p>
-          Languages, frameworks, backend systems, cloud platforms, coursework,
-          and competitive profiles assembled into a live engineering field.
+          Languages, backend frameworks, cloud and DevOps tooling, AI engineering and competitive programming.
+          Hover any node to see where it was used.
         </p>
       </RevealText>
 
@@ -354,58 +328,12 @@ export function SkillsSection({
             className="readout-metric-grid"
             aria-label={`${activeItem.title} signal metrics`}
           >
-            {activeStats.map((stat) => {
-              const rating =
-                typeof stat.value === "number" ? stat.value : 0;
-
-              return (
-                <div key={stat.label}>
-                  <span>{stat.label}</span>
-
-                  {stat.label === "Proficiency" && rating > 0 ? (
-                    <strong
-                      aria-label={`${rating} out of 5 stars`}
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "3px",
-                        whiteSpace: "nowrap"
-                      }}
-                    >
-                      {Array.from({ length: 5 }, (_, index) => {
-                        const isFilled = index < rating;
-
-                        return (
-                          <span
-                            key={index}
-                            style={{
-                              display: "inline-block",
-                              fontSize: "19px",
-                              lineHeight: 1,
-                              color: isFilled
-                                ? "#FFC83D"
-                                : "rgba(148, 163, 184, 0.28)",
-                              textShadow: isFilled
-                                ? "0 0 5px rgba(255, 200, 61, 0.75), 0 0 12px rgba(255, 200, 61, 0.35)"
-                                : "none",
-                              transform: isFilled ? "scale(1.08)" : "scale(1)"
-                            }}
-                          >
-                            {isFilled ? "★" : "☆"}
-                          </span>
-                        );
-                      })}
-                    </strong>
-                  ) : (
-                    <strong>
-                      {stat.label === "Proficiency"
-                        ? "N/A"
-                        : stat.value}
-                    </strong>
-                  )}
-                </div>
-              );
-            })}
+            {activeStats.map((stat) => (
+              <div key={stat.label}>
+                <span>{stat.label}</span>
+                <strong>{stat.value}</strong>
+              </div>
+            ))}
           </div>
 
           <div className="readout-spectrum" aria-hidden="true">

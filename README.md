@@ -4,7 +4,7 @@ An ultra-premium, scroll-driven portfolio for **Yuvraj Tiwary**, Software Develo
 
 Live site: [my-portfolio-yuvraj-7f72.vercel.app/](https://my-portfolio-yuvraj-7f72.vercel.app/)
 
-Resume: [View Resume](https://drive.google.com/file/d/1dSfXDfcK14qpaoX3_lazfjNp4KAZ1_DW/view)
+Resume: [View Resume](https://drive.google.com/file/d/1XqxtkYkbJN6nFfeK4k5__GOxQ5ctma8c/view)
 
 LinkedIn: [Yuvraj Tiwary](https://www.linkedin.com/in/yuvraj-tiwary-426279254)
 
@@ -46,11 +46,12 @@ The result is not a static resume page. It is a high-signal interactive system t
 
 ### Competitive Programming
 
-| Platform | Handle | Tier | Rating / Signal |
+| Platform | Handle | Tier | Max rating |
 | --- | --- | --- | --- |
-| LeetCode | [Baabu_Bhaiya_Ki_Jai](https://leetcode.com/u/Baabu_Bhaiya_Ki_Jai/) | Knight | 2042 |
-| AtCoder | [Yuvraj_2004](https://atcoder.jp/users/Yuvraj_2004) | 8 Kyu | 512 |
 | CodeChef | [bhaiya_2004](https://www.codechef.com/users/bhaiya_2004) | 5 stars | 2034 |
+| LeetCode | [Baabu_Bhaiya_Ki_Jai](https://leetcode.com/u/Baabu_Bhaiya_Ki_Jai/) | Knight | 2042 |
+
+Best contest finishes: global rank **26** of 12,000+ in CodeChef Starters 136 (Div 2), **35** of 10,000+ in Starters 139 (Div 2), and **492** of 30,000+ in LeetCode Biweekly 133.
 
 ---
 
@@ -222,13 +223,12 @@ The stack section uses interactive translucent technology bubbles. Hovering or f
 
 Included categories:
 
-- Languages: `C++`, `C`, `Python`, `JavaScript`, `TypeScript`
-- Frontend: `React.js`, `Next.js`, `GSAP`, `Tailwind CSS`
-- Backend: `Node.js`, `Spring Boot`, `PostgreSQL`, `MySQL`
-- Cloud: `Azure`, `Docker`, `Kubernetes`
-- Tools: `Git`, `GitHub`, `GitLab`
-- Coursework: `OS`, `DBMS`, `OOP`, `Networks`
-- Competitive Profiles: Codeforces, LeetCode, AtCoder, CodeChef
+- Languages: `C++`, `Python`, `TypeScript`, `JavaScript`, `Java`, `C`
+- Backend & Web: `Node.js`, `NestJS`, `Next.js`, `React`, `PostgreSQL`, `Drizzle`, `REST APIs`; familiar with `Spring Boot`, `Kafka`
+- Cloud & DevOps: `GCP`, `Apigee`, `Jenkins`, `Splunk`, `Grafana`, `Nginx`, `Git`, `Linux`
+- AI & ML: `Claude Code`, `MCP`, `Gemini API`, `PyTorch`, `TensorFlow`, `OpenCV`, `Hugging Face`
+- Computer Science: `DSA`, `OOP`, `OS`, `DBMS`, `Networks`
+- Competitive Profiles: CodeChef, LeetCode
 
 ### Project Deep Links
 

@@ -28,17 +28,18 @@ type SceneChildProps = {
 };
 
 const SCENE_STACK_LABELS = [
+  // Names match skill / platform names so hovering a skill node lights up its label here.
   { name: "C++", color: "#6aa7ff" },
   { name: "Python", color: "#ffd95a" },
   { name: "TypeScript", color: "#3178c6" },
-  { name: "React.js", color: "#61dafb" },
+  { name: "Java", color: "#ed8b00" },
+  { name: "NestJS", color: "#e0234e" },
   { name: "Next.js", color: "#f3f7ff" },
   { name: "Node.js", color: "#5fa04e" },
-  { name: "Spring Boot", color: "#6db33f" },
   { name: "PostgreSQL", color: "#4169e1" },
-  { name: "Docker", color: "#2496ed" },
-  { name: "Kubernetes", color: "#326ce5" },
-  { name: "Codeforces", color: "#ff5c8a" },
+  { name: "GCP", color: "#4285f4" },
+  { name: "Claude Code", color: "#d97757" },
+  { name: "CodeChef", color: "#c8a27a" },
   { name: "LeetCode", color: "#ffa116" }
 ] as const;
 

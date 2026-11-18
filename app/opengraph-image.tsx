@@ -90,8 +90,8 @@ export default function Image() {
           </div>
         </div>
         <div style={{ display: "flex", gap: 18, fontSize: 24, color: "#00ff41" }}>
-          <span>UKG API Gateway</span>
-          <span>Codechef 5 stars 2034</span>
+          <span>9 merged OSS PRs</span>
+          <span>CodeChef 5 stars 2034</span>
           <span>LeetCode Knight 2042</span>
         </div>
       </div>

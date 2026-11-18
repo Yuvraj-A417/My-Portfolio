@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { useReducedMotion } from "framer-motion";
 import { CircuitBoard } from "lucide-react";
 import { memo, useEffect, useMemo, useRef, useState } from "react";
-import { useScrollProgress, useScrollSelector, type SceneAnchors, type ScrollState } from "@/hooks/useScrollProgress";
+import { useScrollProgress, useScrollSelector, type SceneAnchors } from "@/hooks/useScrollProgress";
 import { SystemLoader } from "@/components/chrome/SystemLoader";
 import { BlueprintOverlay } from "@/components/chrome/BlueprintOverlay";
 import { GlobalNav } from "@/components/nav/GlobalNav";
@@ -84,12 +84,31 @@ const SCENE_ANCHORS: SceneAnchors = {
 
 type DesktopScenePhase = "clear" | "peeking" | "dimmed";
 
-function getDesktopScenePhase({ sceneProgress: progress }: ScrollState): DesktopScenePhase {
-  if (progress >= 0.315 && progress < 0.455) {
+/**
+ * Where the top of the empty .stack-focus-gap sits, in viewport heights, when the scene
+ * comes into focus. Taken from the original progress thresholds (0.27 / 0.315 / 0.455 / 0.465)
+ * on the 1440x900 layout, but measured against the gap itself so a taller or shorter
+ * Skills section can't move the focus window.
+ */
+const SCENE_FOCUS = { peekStart: 1.23, clearStart: 0.84, clearEnd: -0.36, peekEnd: -0.44 };
+
+function getDesktopScenePhase(): DesktopScenePhase {
+  if (typeof document === "undefined") {
+    return "dimmed";
+  }
+
+  const gap = document.querySelector(".stack-focus-gap");
+  if (!gap) {
+    return "dimmed";
+  }
+
+  const top = gap.getBoundingClientRect().top / (window.innerHeight || 1);
+
+  if (top <= SCENE_FOCUS.clearStart && top > SCENE_FOCUS.clearEnd) {
     return "clear";
   }
 
-  if ((progress >= 0.27 && progress < 0.315) || (progress >= 0.455 && progress < 0.465)) {
+  if ((top <= SCENE_FOCUS.peekStart && top > SCENE_FOCUS.clearStart) || (top <= SCENE_FOCUS.clearEnd && top > SCENE_FOCUS.peekEnd)) {
     return "peeking";
   }
 

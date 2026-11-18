@@ -13,7 +13,9 @@ export type Skill = {
   tone: "blue" | "green" | "silver";
   log: string;
   level: string;
-  group: "Languages" | "Frontend" | "Backend" | "Cloud" | "Tools" | "Coursework";
+  group: "Languages" | "Backend & Web" | "Cloud & DevOps" | "AI & ML" | "Computer Science";
+  /** Where the skill was actually used, shown as the "Proof" stat. Left out when there is nothing specific to point to. */
+  proof?: string;
 };
 
 export type ExperienceItem = {
@@ -85,6 +87,16 @@ export type CompetitiveProfile = {
   rating: string;
   tier: string;
   href: string;
+  /** Best contest finish, short enough for a stat cell, e.g. "Global #26 / 12k+". */
+  best: string;
+  detail: string;
+};
+
+export type ContestRank = {
+  rank: number;
+  field: string;
+  contest: string;
+  platform: string;
 };
 
 export type SocialLink = {
@@ -99,7 +111,8 @@ export const siteProfile = {
   location: "Noida, India",
   email: "yuvrajtiwary699@gmail.com",
   siteUrl: "https://github.com/yuvrajtiwary-bitmesraece",
-  resumeHref: "https://drive.google.com/file/d/1dSfXDfcK14qpaoX3_lazfjNp4KAZ1_DW/view?usp=sharing"
+  resumeHref: "https://drive.google.com/file/d/1XqxtkYkbJN6nFfeK4k5__GOxQ5ctma8c/view",
+  githubHref: "https://github.com/yuvrajtiwary-bitmesraece"
 };
 
 export const stages: Stage[] = [
@@ -121,52 +134,72 @@ export const bootLines = [
 ];
 
 export const skills: Skill[] = [
-  { name: "C++", tone: "silver", level: "Algorithmic Kernel", group: "Languages", log: "Low-level systems thinking and competitive problem solving." },
+  // Languages
+  { name: "C++", tone: "silver", level: "Competitive Programming", group: "Languages", proof: "CodeChef 5★", log: "Main contest language: CodeChef max rating 2034 (5★) and LeetCode max rating 2042 (Knight)." },
+  { name: "Python", tone: "blue", level: "Automation & ML", group: "Languages", proof: "UKG pipeline", log: "UKG's API failure-detection pipeline, the wound-healing analysis and the U-Net dental X-ray model." },
+  { name: "TypeScript", tone: "silver", level: "Typed Backends", group: "Languages", proof: "NestJS · Puppeteer", log: "Merged fixes in NestJS and Puppeteer, and the AI Mock Interview codebase." },
+  { name: "JavaScript", tone: "green", level: "Node & Web Runtime", group: "Languages", proof: "Uptime Kuma PRs", log: "Three merged Uptime Kuma fixes covering SMSManager, SIGNL4 and IPv6 ping tests." },
+  { name: "Java", tone: "blue", level: "JVM Services", group: "Languages", proof: "Stirling-PDF PRs", log: "Stirling-PDF fix placing page numbers correctly on rotated and cropped pages, with tests." },
   { name: "C", tone: "silver", level: "Systems Base", group: "Languages", log: "Memory-aware programming foundation and operating-system level reasoning." },
-  { name: "Python", tone: "blue", level: "Automation Layer", group: "Languages", log: "Fast scripting, data handling, and AI/product glue code." },
-  { name: "JavaScript", tone: "green", level: "Runtime Web", group: "Languages", log: "Browser and Node.js fluency for product-grade interfaces." },
-  { name: "TypeScript", tone: "silver", level: "Typed Product Layer", group: "Languages", log: "Safer full-stack development with explicit contracts." },
-  { name: "React.js", tone: "blue", level: "Interface Layer", group: "Frontend", log: "Responsive interfaces with animation-aware interaction patterns." },
-  { name: "Next.js", tone: "silver", level: "Product Shell", group: "Frontend", log: "Full-stack product surfaces, AI workflows, and optimized rendering." },
-  { name: "GSAP", tone: "green", level: "Motion Driver", group: "Frontend", log: "Timeline-based animation and scroll-linked storytelling." },
-  { name: "Tailwind CSS", tone: "blue", level: "Design System Utility", group: "Frontend", log: "Fast, consistent styling for modern responsive products." },
-  { name: "Node.js", tone: "green", level: "API Runtime", group: "Backend", log: "Server-side JavaScript for APIs, tools, and integration layers." },
-  { name: "Spring Boot", tone: "green", level: "Service Fabric", group: "Backend", log: "Service architecture, integrations, and clean domain boundaries." },
-  { name: "PostgreSQL", tone: "blue", level: "Relational Store", group: "Backend", log: "Structured persistence for reliable product data." },
-  { name: "MySQL", tone: "silver", level: "Relational Store", group: "Backend", log: "Database modeling and query fundamentals." },
-  { name: "Azure", tone: "blue", level: "Cloud Platform", group: "Cloud", log: "Cloud delivery and Azure DevOps experience." },
-  { name: "Docker", tone: "green", level: "Runtime Capsule", group: "Cloud", log: "Containerized development flows and predictable runtime packaging." },
-  { name: "Kubernetes", tone: "blue", level: "Cluster Control", group: "Cloud", log: "Cloud-native deployment literacy and scalable platform awareness." },
-  { name: "Git", tone: "silver", level: "Version Control", group: "Tools", log: "Clean source control and collaborative development workflow." },
-  { name: "GitHub", tone: "blue", level: "Code Platform", group: "Tools", log: "Project hosting, collaboration, and open-source style workflows." },
-  { name: "GitLab", tone: "green", level: "DevOps Platform", group: "Tools", log: "Repository and delivery workflow literacy." },
-  { name: "OS", tone: "silver", level: "Coursework", group: "Coursework", log: "Process, memory, file-system, and concurrency fundamentals." },
-  { name: "DBMS", tone: "blue", level: "Coursework", group: "Coursework", log: "Relational modeling, transactions, indexes, and query design." },
-  { name: "OOP", tone: "green", level: "Coursework", group: "Coursework", log: "Object-oriented design principles and maintainable abstractions." },
-  { name: "Networks", tone: "silver", level: "Coursework", group: "Coursework", log: "Transport, routing, sockets, and distributed-system foundations." }
+  // Backend & Web
+  { name: "Node.js", tone: "green", level: "Server Runtime", group: "Backend & Web", proof: "3 OSS projects", log: "Server-side JavaScript across NestJS, Puppeteer and Uptime Kuma contributions." },
+  { name: "NestJS", tone: "blue", level: "Upstream Contributor", group: "Backend & Web", proof: "2 merged PRs", log: "Fixed repeated-header decoding in the Kafka microservices transport and kept REPL functions after .clear." },
+  { name: "Next.js", tone: "silver", level: "Full-stack Framework", group: "Backend & Web", proof: "AI Mock Interview", log: "App Router and server actions with per-user ownership checks in AI Mock Interview; also this portfolio." },
+  { name: "React.js", tone: "blue", level: "UI Layer", group: "Backend & Web", proof: "This portfolio", log: "Component-driven interfaces, including this site's scroll-linked 3D experience." },
+  { name: "PostgreSQL", tone: "blue", level: "Relational Store", group: "Backend & Web", proof: "AI Mock Interview", log: "AI Mock Interview's data layer, with interview deletes done in a single transaction." },
+  { name: "Drizzle", tone: "green", level: "Type-safe ORM", group: "Backend & Web", proof: "AI Mock Interview", log: "Schema and queries for AI Mock Interview's PostgreSQL database." },
+  { name: "REST APIs", tone: "silver", level: "API Design", group: "Backend & Web", proof: "UKG", log: "Apigee API proxies at UKG, plus REST services and integrations across projects." },
+  { name: "Spring Boot", tone: "green", level: "Familiar", group: "Backend & Web", proof: "Stirling-PDF", log: "Service architecture on the JVM; Stirling-PDF's backend runs on Spring Boot." },
+  { name: "Kafka", tone: "silver", level: "Familiar", group: "Backend & Web", proof: "NestJS #18521", log: "Event streaming; fixed how NestJS's Kafka transport decodes repeated message headers." },
+  // Cloud & DevOps
+  { name: "GCP", tone: "blue", level: "Cloud Platform", group: "Cloud & DevOps", proof: "UKG", log: "Apigee proxies deployed to dev, staging and production environments on Google Cloud." },
+  { name: "Apigee", tone: "green", level: "API Gateway", group: "Cloud & DevOps", proof: "UKG", log: "Proxy deployments, Apigee Analytics call volumes and zero-downtime revision releases through the Management API." },
+  { name: "Jenkins", tone: "silver", level: "CI/CD", group: "Cloud & DevOps", proof: "UKG", log: "Maintained the pipelines that deploy Apigee proxies, and debugged failed builds." },
+  { name: "Splunk", tone: "green", level: "Log Analytics", group: "Cloud & DevOps", proof: "UKG", log: "Splunk exports feeding the detector that flags sustained 5xx failures." },
+  { name: "Grafana", tone: "blue", level: "Metrics", group: "Cloud & DevOps", proof: "UKG", log: "Grafana metrics as a signal in the API monitoring pipeline." },
+  { name: "Nginx", tone: "green", level: "Web Server", group: "Cloud & DevOps", proof: "UKG", log: "Nginx access logs as the raw signal for sustained 5xx failure detection." },
+  { name: "Git", tone: "silver", level: "Version Control", group: "Cloud & DevOps", proof: "9 merged PRs", log: "Small, reviewable pull requests that got through maintainer review in four projects." },
+  { name: "Linux", tone: "blue", level: "OS & Tooling", group: "Cloud & DevOps", log: "Shells, servers and day-to-day development tooling." },
+  // AI & ML
+  { name: "Claude Code", tone: "silver", level: "AI Engineering", group: "AI & ML", proof: "62 defects filed", log: "Turned flagged API failures into Jira tickets at UKG, skipping duplicates." },
+  { name: "MCP", tone: "green", level: "Tool Integration", group: "AI & ML", proof: "Jira MCP", log: "Jira MCP integration that let Claude Code file and de-duplicate defects." },
+  { name: "Gemini API", tone: "blue", level: "LLM API", group: "AI & ML", proof: "AI Mock Interview", log: "JSON mode with a response schema for interview questions and answer ratings." },
+  { name: "PyTorch", tone: "green", level: "Deep Learning", group: "AI & ML", proof: "PixelGenie", log: "Model execution and optimisation for Stable Diffusion, CLIP and VGG19 experiments." },
+  { name: "TensorFlow", tone: "silver", level: "Deep Learning", group: "AI & ML", log: "Neural-network training and experimentation." },
+  { name: "OpenCV", tone: "blue", level: "Computer Vision", group: "AI & ML", log: "Image processing and computer-vision pipelines." },
+  { name: "Hugging Face", tone: "silver", level: "Model Hub", group: "AI & ML", proof: "PixelGenie", log: "Diffusers and Transformers for Stable Diffusion and CLIP." },
+  // Computer Science
+  { name: "DSA", tone: "green", level: "Problem Solving", group: "Computer Science", proof: "Global rank 26", log: "Contest-tested: global rank 26 of 12,000+ in CodeChef Starters 136 (Div 2)." },
+  { name: "OOP", tone: "green", level: "Coursework", group: "Computer Science", proof: "Coursework", log: "Object-oriented design principles and maintainable abstractions." },
+  { name: "OS", tone: "silver", level: "Coursework", group: "Computer Science", proof: "Coursework", log: "Process, memory, file-system, and concurrency fundamentals." },
+  { name: "DBMS", tone: "blue", level: "Coursework", group: "Computer Science", proof: "Coursework", log: "Relational modeling, transactions, indexes, and query design." },
+  { name: "Networks", tone: "silver", level: "Coursework", group: "Computer Science", proof: "Coursework", log: "Transport, routing, sockets, and distributed-system foundations." }
+];
+
+export const contestRanks: ContestRank[] = [
+  { rank: 26, field: "12,000+", contest: "Starters 136 (Div 2)", platform: "CodeChef" },
+  { rank: 35, field: "10,000+", contest: "Starters 139 (Div 2)", platform: "CodeChef" },
+  { rank: 492, field: "30,000+", contest: "Biweekly 133", platform: "LeetCode" }
 ];
 
 export const competitiveProfiles: CompetitiveProfile[] = [
   {
-    platform: "Codechef",
+    platform: "CodeChef",
     handle: "bhaiya_2004",
     rating: "2034",
     tier: "5 stars",
-    href: "https://www.codechef.com/users/bhaiya_2004"
+    href: "https://www.codechef.com/users/bhaiya_2004",
+    best: "Global #26 / 12k+",
+    detail: "Max rating 2034 (5★). Global rank 26 of 12,000+ in Starters 136 (Div 2) and 35 of 10,000+ in Starters 139 (Div 2)."
   },
   {
     platform: "LeetCode",
     handle: "Baabu_Bhaiya_Ki_Jai",
     rating: "2042",
     tier: "Knight",
-    href: "https://leetcode.com/u/Baabu_Bhaiya_Ki_Jai/"
-  },
-  {
-    platform: "AtCoder",
-    handle: "Yuvraj_2004",
-    rating: "512",
-    tier: "8 Kyu",
-    href: "https://atcoder.jp/users/Yuvraj_2004"
+    href: "https://leetcode.com/u/Baabu_Bhaiya_Ki_Jai/",
+    best: "Global #492 / 30k+",
+    detail: "Max rating 2042 (Knight). Global rank 492 of 30,000+ in Biweekly Contest 133."
   }
 ];
 
@@ -484,7 +517,7 @@ export const projects: Project[] = [
 export const socialLinks: SocialLink[] = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/yuvraj-tiwary-426279254", icon: Linkedin },
   { label: "GitHub", href: "https://github.com/yuvrajtiwary-bitmesraece", icon: Github },
-  { label: "Codechef", href: "https://www.codechef.com/users/bhaiya_2004", icon: Code2 },
+  { label: "CodeChef", href: "https://www.codechef.com/users/bhaiya_2004", icon: Code2 },
   { label: "Contact", href: `mailto:${siteProfile.email}`, icon: Mail },
   { label: "Resume", href: siteProfile.resumeHref, icon: FileText }
 ];
