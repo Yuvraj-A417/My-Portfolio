@@ -5,6 +5,7 @@ import { useReducedMotion } from "framer-motion";
 import { CircuitBoard } from "lucide-react";
 import { memo, useEffect, useMemo, useRef, useState } from "react";
 import { useScrollProgress, useScrollSelector } from "@/hooks/useScrollProgress";
+import { useSmoothScroll } from "@/hooks/useSmoothScroll";
 import { SystemLoader } from "@/components/chrome/SystemLoader";
 import { BlueprintOverlay } from "@/components/chrome/BlueprintOverlay";
 import { GlobalNav } from "@/components/nav/GlobalNav";
@@ -71,6 +72,7 @@ function getDesktopScenePhase(progress: number): DesktopScenePhase {
 export function PortfolioExperience() {
   // Scroll progress lives outside React state; only the scene phase below re-renders this component.
   const scroll = useScrollProgress();
+  useSmoothScroll();
   const desktopScenePhase = useScrollSelector(scroll, getDesktopScenePhase);
   const reduceMotion = useReducedMotion();
   const cursorAuraRef = useRef<HTMLDivElement>(null);

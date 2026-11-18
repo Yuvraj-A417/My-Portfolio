@@ -4,6 +4,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { competitiveProfiles, projects, siteProfile, socialLinks } from "@/data/portfolio";
 import { getSiteUrl, seoDescription, seoKeywords } from "./seo";
 
+import "lenis/dist/lenis.css";
 import "./globals.css";
 
 const siteUrl = getSiteUrl();
