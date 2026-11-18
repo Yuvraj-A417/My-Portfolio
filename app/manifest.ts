@@ -5,7 +5,7 @@ import { seoDescription } from "./seo";
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: `${siteProfile.name} | Software Development Engineer`,
-    short_name: "Aditya S.",
+    short_name: "Yuvraj T.",
     description: seoDescription,
     start_url: "/",
     scope: "/",
