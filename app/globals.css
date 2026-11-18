@@ -894,6 +894,11 @@ button {
 }
 
 .copy-block h2 {
+  /* Gradient text (background-clip: text) is only painted inside the box. With line-height 0.9
+     the descenders of p, g and y on the last line hang below it and get sliced off, so extend
+     the box downward and pull the following content back up by the same amount. */
+  padding-bottom: 0.2em;
+  margin-bottom: -0.2em;
   font-size: clamp(2.7rem, 6.2vw, 6rem);
   line-height: 0.9;
 }
