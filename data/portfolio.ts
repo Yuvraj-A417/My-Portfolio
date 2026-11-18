@@ -163,12 +163,12 @@ export const experience: ExperienceItem[] = [
     company: "ECE SIPAR",
     meta: "Computer Vision Research Intern",
     period: "May 2025 - Jul 2025",
-    title: "CV-driven diabetic wound healing analysis",
+    title: "Image-based wound healing analysis for a drug-efficacy study",
     details:
-      "Developed a computer vision pipeline to analyze wound-healing progression in diabetic Wistar rats, using image processing and pixel-based wound area estimation across treatment groups.",
-    metric: "84 experimental image records analyzed",
-    stack: ["Python", "OpenCV", "Computer Vision", "Image Processing", "NumPy"],
-    signal: "Applied AI research and medical image analysis"
+      "Quantified wound healing in diabetic Wistar rats across three groups (natural healing, standard drug, experimental drug). Annotated wound boundaries as polygons in VGG Image Annotator, computed wound area with the Shoelace formula, and plotted mean % healed per group over 13 days. The experimental drug group reached 98.7% healed by Day 13, versus 83.9% for the standard drug and 56.2% for natural healing.",
+    metric: "84 annotated wound images",
+    stack: ["Python", "Pandas", "NumPy", "Matplotlib", "VGG Image Annotator"],
+    signal: "Computer vision for biomedical research"
   }
 ];
 
