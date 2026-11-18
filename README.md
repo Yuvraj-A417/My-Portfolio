@@ -58,15 +58,35 @@ The result is not a static resume page. It is a high-signal interactive system t
 
 ### UKG
 
-**Software Engineer Intern — API Gateway**  
+**Software Engineering Intern — Apigee API Platform**  
 **Jan 2026 - Jul 2026**
 
-- Developed API Gateway monitoring and reliability workflows using Apigee X and GCP.
-- Built Splunk dashboards to track API errors and distinguish gateway failures from backend issues.
-- Automated tenant testing and incident workflows using Selenium, Splunk, JIRA, Nginx.
-- Highlight metric: **62 JIRA defects and incidents tracked**.
+- Built a Python monitoring pipeline over Nginx logs, Splunk exports and Grafana metrics that flags sustained 5xx failures, with per-API thresholds scaled to call volume from Apigee Analytics.
+- Routed flagged failures to Claude Code through a Jira MCP integration that files tickets and skips duplicates: **62 defects filed in 4 months**, about 65–70% confirmed real by senior-engineer review.
+- Maintained Jenkins CI/CD pipelines deploying Apigee API proxies to dev, staging and production on GCP; supported zero-downtime revision releases through the Apigee Management API.
 
-Stack signals: `Java`, `Apigee X`, `GCP`, `Splunk`, `Jenkins`, `Selenium`, `API Gateway`
+Stack signals: `Python`, `Apigee`, `GCP`, `Splunk`, `Grafana`, `Nginx`, `Jenkins`, `Claude Code`, `Jira MCP`
+
+### ECE SIPAR, BIT Mesra
+
+**Computer Vision Intern**  
+**May 2025 - Jul 2025**
+
+- Measured wound healing for a RIMS Ranchi drug-efficacy study: polygon annotation, Shoelace-formula areas and percent-healed curves over 13 days (experimental drug 98.7% healed by Day 13, standard drug 83.9%, natural healing 56.2%).
+- Trained a custom U-Net to segment third molars on panoramic dental X-rays (800–900 professor-annotated images), reaching about 72% IoU after a warm-up on circular objects from a COCO-derived dataset.
+
+---
+
+## Open Source
+
+9 merged pull requests across 4 projects with about 360k combined GitHub stars:
+
+| Project | Pull requests |
+| --- | --- |
+| [NestJS](https://github.com/nestjs/nest) | Kafka transport decodes every value of a repeated header ([#18521](https://github.com/nestjs/nest/pull/18521)); REPL functions survive `.clear` ([#18547](https://github.com/nestjs/nest/pull/18547)) |
+| [Puppeteer](https://github.com/puppeteer/puppeteer) | Cooperative Intercept Mode applies the highest-priority payload ([#15825](https://github.com/puppeteer/puppeteer/pull/15825)); clean script works on Windows ([#15812](https://github.com/puppeteer/puppeteer/pull/15812)) |
+| [Stirling-PDF](https://github.com/Stirling-Tools/Stirling-PDF) | Page numbers placed correctly on rotated and cropped pages ([#8896](https://github.com/Stirling-Tools/Stirling-PDF/pull/8896)); stamp-tool regression test ([#8803](https://github.com/Stirling-Tools/Stirling-PDF/pull/8803)) |
+| [Uptime Kuma](https://github.com/louislam/uptime-kuma) | SMSManager gateway type ([#8174](https://github.com/louislam/uptime-kuma/pull/8174)); SIGNL4 monitor ID ([#8173](https://github.com/louislam/uptime-kuma/pull/8173)); IPv6 ping test ([#8148](https://github.com/louislam/uptime-kuma/pull/8148)) |
 
 ---
 
@@ -76,20 +96,19 @@ The project section is built as a case-study viewport rather than a simple card 
 
 ### AI Mock Interview
 
-**Stack:** Next.js 14 + Gemini AI  
-**Metric:** 500+ interviews processed  
-**Live:** [ai-mock-interview-delta-one.vercel.app](https://ai-mock-interview-delta-one.vercel.app)  
-**Source:** [github.com/Adi1816/AI-Mock-Interview](https://github.com/Adi1816/AI-Mock-Interview)
+**Stack:** Next.js 15 + PostgreSQL (Drizzle ORM) + Gemini + Clerk  
+**Release:** [v1.0.0](https://github.com/yuvrajtiwary-bitmesraece/AI-Mock-Interview/releases/tag/v1.0.0)  
+**Live:** [ai-mock-interview-dev2.vercel.app](https://ai-mock-interview-dev2.vercel.app/)  
+**Source:** [github.com/yuvrajtiwary-bitmesraece/AI-Mock-Interview](https://github.com/yuvrajtiwary-bitmesraece/AI-Mock-Interview)
 
-AI Mock Interview is a smart interview-practice platform that simulates real interviews with an AI-driven interviewer. It asks technical and HR questions, supports live transcripts, evaluates responses, and produces performance reports.
+A GenAI interview simulator: Gemini writes role-specific questions, the candidate answers out loud, and every answer gets a rating and written feedback.
 
-Key product signals:
+Key engineering work:
 
-- AI interviewer flow
-- Live transcript surface
-- Rubric-style feedback
-- Performance report loop
-- Structured repeat-practice workflow
+- Moved every database and Gemini call into server actions with per-user ownership checks, taking API secrets out of the client bundle
+- Gemini in JSON mode with a response schema; questions validated before saving
+- Fixed speech capture cutting long answers short, plus AI-response, feedback and navigation bugs
+- CI (lint, test, build on every PR), unit tests, ESLint, Dependabot and tag-driven GitHub Releases, shipped as v1.0.0
 
 ### PixelGenie
 

@@ -87,7 +87,7 @@ export function CoreScene({ scroll, progressOverride, hoveredSkill, isActive }: 
   const quality = useAdaptiveQuality();
   const overrideRef = useRef(progressOverride);
   overrideRef.current = progressOverride;
-  const getProgress = useCallback(() => overrideRef.current ?? scroll.get(), [scroll]);
+  const getProgress = useCallback(() => overrideRef.current ?? scroll.getScene(), [scroll]);
 
   return (
     <Canvas

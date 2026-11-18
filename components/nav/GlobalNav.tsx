@@ -4,7 +4,24 @@ import { useEffect, useRef } from "react";
 import { stages } from "@/data/portfolio";
 import { useScrollSelector, type ScrollProgressStore } from "@/hooks/useScrollProgress";
 
-const getActiveIndex = (progress: number) => Math.min(stages.length - 1, Math.floor(progress * stages.length));
+/** The active stage is the last section whose top has passed 45% of the viewport height. */
+function getActiveIndex() {
+  if (typeof document === "undefined") {
+    return 0;
+  }
+
+  const probe = window.innerHeight * 0.45;
+  let active = 0;
+
+  stages.forEach((stage, index) => {
+    const section = document.getElementById(stage.id);
+    if (section && section.getBoundingClientRect().top <= probe) {
+      active = index;
+    }
+  });
+
+  return active;
+}
 
 export function GlobalNav({ scroll }: { scroll: ScrollProgressStore }) {
   const activeIndex = useScrollSelector(scroll, getActiveIndex);

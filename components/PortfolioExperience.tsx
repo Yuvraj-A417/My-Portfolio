@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { useReducedMotion } from "framer-motion";
 import { CircuitBoard } from "lucide-react";
 import { memo, useEffect, useMemo, useRef, useState } from "react";
-import { useScrollProgress, useScrollSelector } from "@/hooks/useScrollProgress";
+import { useScrollProgress, useScrollSelector, type SceneAnchors, type ScrollState } from "@/hooks/useScrollProgress";
 import { SystemLoader } from "@/components/chrome/SystemLoader";
 import { BlueprintOverlay } from "@/components/chrome/BlueprintOverlay";
 import { GlobalNav } from "@/components/nav/GlobalNav";
@@ -13,6 +13,7 @@ import { HeroSection } from "@/components/sections/HeroSection";
 import { AboutSection } from "@/components/sections/AboutSection";
 import { SkillsSection } from "@/components/sections/SkillsSection";
 import { ExperienceSection } from "@/components/sections/ExperienceSection";
+import { OpenSourceSection } from "@/components/sections/OpenSourceSection";
 import { ProjectsSection } from "@/components/sections/ProjectsSection";
 import { FooterSection } from "@/components/sections/FooterSection";
 
@@ -28,6 +29,7 @@ const MemoHeroSection = memo(HeroSection);
 const MemoAboutSection = memo(AboutSection);
 const MemoSkillsSection = memo(SkillsSection);
 const MemoExperienceSection = memo(ExperienceSection);
+const MemoOpenSourceSection = memo(OpenSourceSection);
 const MemoProjectsSection = memo(ProjectsSection);
 const MemoFooterSection = memo(FooterSection);
 
@@ -54,9 +56,35 @@ function requestIdleWork(task: () => void, timeout = 1200) {
   return () => globalThis.clearTimeout(timer);
 }
 
+/**
+ * Scene progress at each section's top, measured on the layout the 3D scene was tuned for
+ * (1440x900 and 390x844, before the Open Source section existed). Pinning the scene to these
+ * keeps its timing (stack explosion, data pillar, reassembly) in step with the sections even
+ * when sections are added or their content grows. Open Source has no anchor: the scene moves
+ * through Timeline and Open Source together.
+ */
+const SCENE_ANCHORS: SceneAnchors = {
+  regular: [
+    { selector: "#engine", progress: 0.1121 },
+    { selector: "#stack", progress: 0.2328 },
+    { selector: ".stack-focus-gap", progress: 0.4132 },
+    { selector: "#timeline", progress: 0.5253 },
+    { selector: "#showcase", progress: 0.7187 },
+    { selector: "#handshake", progress: 0.9743 }
+  ],
+  compact: [
+    { selector: "#engine", progress: 0.0882 },
+    { selector: "#stack", progress: 0.1706 },
+    { selector: ".stack-focus-gap", progress: 0.3585 },
+    { selector: "#timeline", progress: 0.4314 },
+    { selector: "#showcase", progress: 0.6612 },
+    { selector: "#handshake", progress: 0.9602 }
+  ]
+};
+
 type DesktopScenePhase = "clear" | "peeking" | "dimmed";
 
-function getDesktopScenePhase(progress: number): DesktopScenePhase {
+function getDesktopScenePhase({ sceneProgress: progress }: ScrollState): DesktopScenePhase {
   if (progress >= 0.315 && progress < 0.455) {
     return "clear";
   }
@@ -70,7 +98,7 @@ function getDesktopScenePhase(progress: number): DesktopScenePhase {
 
 export function PortfolioExperience() {
   // Scroll progress lives outside React state; only the scene phase below re-renders this component.
-  const scroll = useScrollProgress();
+  const scroll = useScrollProgress({ sceneAnchors: SCENE_ANCHORS });
   const desktopScenePhase = useScrollSelector(scroll, getDesktopScenePhase);
   const reduceMotion = useReducedMotion();
   const cursorAuraRef = useRef<HTMLDivElement>(null);
@@ -247,6 +275,7 @@ export function PortfolioExperience() {
       <MemoSkillsSection hoveredSkill={hoveredSkill} setHoveredSkill={setHoveredSkill} />
       <section className="stack-focus-gap" aria-hidden="true" />
       <MemoExperienceSection />
+      <MemoOpenSourceSection />
       <MemoProjectsSection />
       <MemoFooterSection />
 

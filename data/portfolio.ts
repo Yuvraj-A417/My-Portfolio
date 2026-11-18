@@ -21,10 +21,32 @@ export type ExperienceItem = {
   meta: string;
   period: string;
   title: string;
-  details: string;
+  highlights: string[];
   metric: string;
   stack: string[];
   signal: string;
+};
+
+export type OpenSourcePullRequest = {
+  number: number;
+  kind: "fix" | "test" | "build";
+  scope: string;
+  summary: string;
+  merged: string;
+  additions: number;
+  deletions: number;
+};
+
+export type OpenSourceProject = {
+  name: string;
+  /** GitHub "owner/name"; PR links are built from it. */
+  repo: string;
+  tagline: string;
+  logo: string;
+  accent: string;
+  language: string;
+  stars: string;
+  pullRequests: OpenSourcePullRequest[];
 };
 
 export type ProjectLink = {
@@ -85,6 +107,7 @@ export const stages: Stage[] = [
   { id: "engine", label: "Engine Room", range: "15-35%", log: "Education substrate and architecture layer exposed." },
   { id: "stack", label: "Stack Explosion", range: "35-55%", log: "Runtime stack separated into orbiting service bands." },
   { id: "timeline", label: "Timeline", range: "55-75%", log: "Career fragments aligning into a data pillar." },
+  { id: "opensource", label: "Open Source", range: "75%", log: "Upstream patches merged into shared infrastructure." },
   { id: "showcase", label: "Showcase", range: "75-90%", log: "Product viewport online. Holographic modules ready." },
   { id: "handshake", label: "Handshake", range: "90-100%", log: "Core reassembled. Contact protocol open." }
 ];
@@ -150,43 +173,188 @@ export const competitiveProfiles: CompetitiveProfile[] = [
 export const experience: ExperienceItem[] = [
   {
     company: "UKG",
-    meta: "Software Development Engineer Intern - APIGEE",
+    meta: "Software Engineering Intern · Apigee API Platform",
     period: "Jan 2026 - Jul 2026",
-    title: "API Gateway Engineering and Production Automation",
-    details:
-      "Automated API health monitoring using Selenium, Splunk, and Atlassian REST APIs, generating 62 JIRA defects and incidents while improving gateway observability and streamlining Apigee deployments across GCP environments.",
-    metric: "62 JIRA defects & incidents",
-    stack: ["Java", "Apigee X", "GCP", "Splunk", "Selenium", "REST APIs", "Jenkins"],
-    signal: "Enterprise backend reliability"
+    title: "Automated API failure detection and Apigee delivery on GCP",
+    highlights: [
+      "Built a Python monitoring pipeline over Nginx logs, Splunk exports and Grafana metrics that flags sustained 5xx failures, with a separate threshold for each API scaled to its call volume from Apigee Analytics.",
+      "Routed flagged failures to Claude Code through a Jira MCP integration that files tickets and skips duplicates: 62 defects filed in 4 months, about 65–70% confirmed as real by senior-engineer review.",
+      "Maintained the Jenkins CI/CD pipelines that deploy Apigee API proxies to dev, staging and production on GCP, debugging failed builds and supporting zero-downtime revision releases through the Apigee Management API."
+    ],
+    metric: "62 defects filed in 4 months",
+    stack: ["Python", "Apigee", "GCP", "Splunk", "Grafana", "Nginx", "Jenkins", "Claude Code", "Jira MCP"],
+    signal: "API reliability automation"
   },
   {
     company: "ECE SIPAR",
-    meta: "Computer Vision Research Intern",
+    meta: "Computer Vision Intern · BIT Mesra",
     period: "May 2025 - Jul 2025",
-    title: "Image-based wound healing analysis for a drug-efficacy study",
-    details:
-      "Quantified wound healing in diabetic Wistar rats across three groups (natural healing, standard drug, experimental drug). Annotated wound boundaries as polygons in VGG Image Annotator, computed wound area with the Shoelace formula, and plotted mean % healed per group over 13 days. The experimental drug group reached 98.7% healed by Day 13, versus 83.9% for the standard drug and 56.2% for natural healing.",
-    metric: "84 annotated wound images",
-    stack: ["Python", "Pandas", "NumPy", "Matplotlib", "VGG Image Annotator"],
-    signal: "Computer vision for biomedical research"
+    title: "Medical image analysis: drug efficacy and dental X-ray segmentation",
+    highlights: [
+      "Measured wound healing for a RIMS Ranchi drug-efficacy study on diabetic rats (experimental drug vs. standard drug vs. natural healing): annotated wound boundaries as polygons, computed their areas with the Shoelace formula, and plotted percent healed over 13 days. By Day 13 the experimental drug group was 98.7% healed, against 83.9% for the standard drug and 56.2% for natural healing.",
+      "Trained a custom U-Net to segment third molars (wisdom teeth) on panoramic dental X-rays, using 800–900 images annotated by my professor, and reached about 72% IoU after a warm-up phase on circular objects from a COCO-derived dataset."
+    ],
+    metric: "~72% IoU on dental X-rays",
+    stack: ["Python", "U-Net", "Image Segmentation", "Pandas", "NumPy", "Matplotlib", "VGG Image Annotator"],
+    signal: "Computer vision for medical research"
   }
 ];
+
+export const openSourceProjects: OpenSourceProject[] = [
+  {
+    name: "NestJS",
+    repo: "nestjs/nest",
+    tagline: "Progressive Node.js framework for building server-side applications.",
+    logo: "/logos/oss/nestjs.png",
+    accent: "#ea2845",
+    language: "TypeScript",
+    stars: "77k",
+    pullRequests: [
+      {
+        number: 18521,
+        kind: "fix",
+        scope: "microservices",
+        summary: "Fixed the Kafka microservices transport so every value of a repeated message header is decoded, not just one.",
+        merged: "Nov 16, 2026",
+        additions: 31,
+        deletions: 1
+      },
+      {
+        number: 18547,
+        kind: "fix",
+        scope: "core",
+        summary: "Kept Nest's built-in REPL functions available after running .clear.",
+        merged: "Nov 18, 2026",
+        additions: 87,
+        deletions: 0
+      }
+    ]
+  },
+  {
+    name: "Puppeteer",
+    repo: "puppeteer/puppeteer",
+    tagline: "JavaScript API for controlling Chrome and Firefox.",
+    logo: "/logos/oss/puppeteer.png",
+    accent: "#00d8a2",
+    language: "TypeScript",
+    stars: "96k",
+    pullRequests: [
+      {
+        number: 15825,
+        kind: "fix",
+        scope: "network",
+        summary: "Fixed request interception in Cooperative Intercept Mode so the highest-priority handler's payload is the one applied, with unit tests.",
+        merged: "Nov 18, 2026",
+        additions: 142,
+        deletions: 6
+      },
+      {
+        number: 15812,
+        kind: "build",
+        scope: "windows",
+        summary: "Made the build's clean script run through Node so it works on Windows.",
+        merged: "Nov 17, 2026",
+        additions: 9,
+        deletions: 9
+      }
+    ]
+  },
+  {
+    name: "Stirling-PDF",
+    repo: "Stirling-Tools/Stirling-PDF",
+    tagline: "Self-hosted toolkit for editing, converting and securing PDFs.",
+    logo: "/logos/oss/stirling-pdf.png",
+    accent: "#ff6b3d",
+    language: "Java · Spring Boot",
+    stars: "97k",
+    pullRequests: [
+      {
+        number: 8896,
+        kind: "fix",
+        scope: "page-numbers",
+        summary: "Fixed page numbers landing in the wrong place on rotated and cropped pages by honouring /Rotate and the CropBox, with tests.",
+        merged: "Nov 17, 2026",
+        additions: 234,
+        deletions: 2
+      },
+      {
+        number: 8803,
+        kind: "test",
+        scope: "stamp",
+        summary: "Added a regression test for stamping text that contains periods and umlauts.",
+        merged: "Nov 15, 2026",
+        additions: 21,
+        deletions: 0
+      }
+    ]
+  },
+  {
+    name: "Uptime Kuma",
+    repo: "louislam/uptime-kuma",
+    tagline: "Self-hosted uptime monitoring with alerts to 90+ notification services.",
+    logo: "/logos/oss/uptime-kuma.png",
+    accent: "#5cdd8b",
+    language: "Node.js",
+    stars: "95k",
+    pullRequests: [
+      {
+        number: 8174,
+        kind: "fix",
+        scope: "smsmanager",
+        summary: "Fixed SMSManager alerts ignoring the configured gateway type.",
+        merged: "Nov 16, 2026",
+        additions: 29,
+        deletions: 1
+      },
+      {
+        number: 8173,
+        kind: "fix",
+        scope: "signl4",
+        summary: "Fixed SIGNL4 alerts using a nonexistent monitor ID; they now send the real monitor ID as the alert's external ID.",
+        merged: "Nov 16, 2026",
+        additions: 43,
+        deletions: 2
+      },
+      {
+        number: 8148,
+        kind: "test",
+        scope: "ping",
+        summary: "Fixed the IPv6 bracket ping test so it passes on machines that have IPv6.",
+        merged: "Nov 12, 2026",
+        additions: 4,
+        deletions: 2
+      }
+    ]
+  }
+];
+
+export const openSourceProfileHref =
+  "https://github.com/search?q=author%3Ayuvrajtiwary-bitmesraece+is%3Apr+is%3Amerged&type=pullrequests";
 
 export const projects: Project[] = [
   {
     slug: "ai-mock-interview",
     name: "AI Mock Interview",
-    stack: "Next.js 14 + Gemini AI",
-    metric: "500+ interviews processed",
-    signal: "Voice, rubric, feedback loop",
-    copy: "A holographic interview platform that converts preparation into structured, AI-assisted feedback loops.",
+    stack: "Next.js 15 + PostgreSQL + Gemini",
+    metric: "v1.0.0 shipped with CI and tests",
+    signal: "Secure server actions, structured AI output",
+    copy: "A GenAI interview simulator: Gemini writes role-specific questions, you answer out loud, and every answer comes back with a rating and written feedback.",
     problem:
-      "Interview preparation is usually unstructured: candidates practice answers, but do not get consistent scoring, live transcripts, or actionable performance reports.",
-    role: "Full-stack product engineer",
-    challenge: "Create a realistic practice loop without making the AI feel like an ungrounded chatbot.",
-    solution: "Built a guided interview flow with generated questions, live transcripts, rubric-style feedback, and session reports.",
-    impact: "Processed 500+ mock interviews and turned repeat practice into measurable candidate feedback.",
-    proofPoints: ["AI interviewer flow", "Live transcript surface", "Performance report loop"],
+      "Practising interviews alone gives no feedback. The app fixes that, but its first version called the database and Gemini straight from the browser, which exposed both secrets in client JavaScript, and its interview flow had bugs that cut answers short and saved broken questions.",
+    role: "Full-stack engineer (security, reliability and release)",
+    challenge: "Make the app safe to deploy publicly and reliable end to end, without a rewrite, through small reviewable pull requests.",
+    solution:
+      "Moved every database and Gemini call into Next.js server actions with per-user ownership checks, put Gemini in JSON mode with a response schema, fixed the recording and feedback bugs, and added CI, tests, linting and automated releases.",
+    impact:
+      "Shipped a versioned v1.0.0 release across 7 merged pull requests: no secrets left in the client bundle, vulnerable dependencies patched, and every pull request linted, tested and built on GitHub Actions.",
+    proofPoints: [
+      "Server actions with ownership checks",
+      "Gemini JSON mode + response schema",
+      "Auto-restarting speech capture",
+      "CI: lint, test, build on every PR",
+      "Automated GitHub Releases",
+      "v1.0.0 release"
+    ],
     media: [
       {
         src: "/projects/ai-mock-interview-01.jpg",
@@ -200,18 +368,21 @@ export const projects: Project[] = [
       }
     ],
     architecture: [
-      "Smart web app that simulates real interviews using an AI-driven interviewer.",
-      "Question flow supports technical and HR practice with live transcripts.",
-      "Performance reports convert responses into feedback that users can act on."
+      "Next.js 15 App Router with Clerk authentication; all data access runs in server actions that check the signed-in user owns the interview.",
+      "PostgreSQL through Drizzle ORM; deleting an interview removes its answers in the same transaction.",
+      "Gemini in JSON mode with a response schema for both question generation and answer ratings (whole numbers from 1 to 5); questions are validated before they are saved.",
+      "Browser speech recognition restarts automatically when the browser pauses it, so long answers are kept in full; re-recording replaces the previous answer."
     ],
     decisions: [
-      "Kept feedback structured instead of purely conversational so results are easy to compare over time.",
-      "Designed the UI around high-pressure interview cadence: prompt, answer, score, reflect, retry.",
-      "Used the 500+ processed interviews metric as the primary proof point."
+      "Moved secrets server-side (DATABASE_URL, GEMINI_API_KEY) and rotated the keys the old client bundle had exposed.",
+      "Asked Gemini for schema-checked JSON instead of parsing free text, so a malformed response can no longer create an unusable interview.",
+      "Made the question count configurable (INTERVIEW_QUESTION_COUNT, 1–10) after finding it came from an undefined variable.",
+      "Added unit tests, ESLint, a CI workflow, Dependabot and tag-driven GitHub Releases, then shipped the work as v1.0.0 with a changelog."
     ],
     links: [
       { label: "Live Demo", href: "https://ai-mock-interview-dev2.vercel.app/" },
-      { label: "Source", href: "https://github.com/yuvrajtiwary-bitmesraece/AI-Mock-Interview" }
+      { label: "Source", href: "https://github.com/yuvrajtiwary-bitmesraece/AI-Mock-Interview" },
+      { label: "v1.0.0 Release", href: "https://github.com/yuvrajtiwary-bitmesraece/AI-Mock-Interview/releases/tag/v1.0.0" }
     ]
   },
   {

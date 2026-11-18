@@ -1,8 +1,8 @@
 "use client";
 
-import { useScrollSelector, type ScrollProgressStore } from "@/hooks/useScrollProgress";
+import { useScrollSelector, type ScrollProgressStore, type ScrollState } from "@/hooks/useScrollProgress";
 
-const toPercent = (progress: number) => Math.round(progress * 100);
+const toPercent = ({ progress }: ScrollState) => Math.round(progress * 100);
 
 export function BlueprintOverlay({ scroll }: { scroll: ScrollProgressStore }) {
   const percent = useScrollSelector(scroll, toPercent);

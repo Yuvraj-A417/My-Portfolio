@@ -16,11 +16,11 @@ function ExperienceMark({ company }: { company: string }) {
         label: "UKG logo",
         className: "ukg-logo"
       }
-    : key.includes("ECE SIPAR")
+    : key.includes("ecesipar")
       ? {
           src: "/logos/bit_logo.svg",
           label: "BIT Mesra logo",
-          className: "bit-logo"
+          className: "tle-logo"
         }
       : {
           src: "/logos/bit_logo.svg",
@@ -67,7 +67,11 @@ export function ExperienceSection() {
                 </div>
                 <h3>{item.company}</h3>
                 <h4>{item.title}</h4>
-                <p>{item.details}</p>
+                <ul className="timeline-highlights">
+                  {item.highlights.map((highlight) => (
+                    <li key={highlight}>{highlight}</li>
+                  ))}
+                </ul>
                 <div className="timeline-tags" aria-label={`${item.company} technology and signal tags`}>
                   {item.stack.map((tag) => (
                     <i key={tag}>{tag}</i>
