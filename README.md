@@ -4,7 +4,7 @@ An ultra-premium, scroll-driven portfolio for **Yuvraj Tiwary**, Software Develo
 
 Live site: [my-portfolio-yuvraj-7f72.vercel.app/](https://my-portfolio-yuvraj-7f72.vercel.app/)
 
-Resume: [View Resume](https://drive.google.com/file/d/1cXosJAkzTDRLgL2VEOM9psm1jMPiBXki/view?usp=sharing)
+Resume: [View Resume](https://drive.google.com/file/d/1ch0AllFRaP6Al6crY68WwQF8LYdyfxIs/view?usp=sharing)
 
 LinkedIn: [Yuvraj Tiwary](https://www.linkedin.com/in/yuvraj-tiwary-426279254)
 

@@ -111,7 +111,7 @@ export const siteProfile = {
   location: "Noida, India",
   email: "yuvrajtiwary699@gmail.com",
   siteUrl: "https://github.com/yuvrajtiwary-bitmesraece",
-  resumeHref: "https://drive.google.com/file/d/1cXosJAkzTDRLgL2VEOM9psm1jMPiBXki/view?usp=sharing",
+  resumeHref: "https://drive.google.com/file/d/1ch0AllFRaP6Al6crY68WwQF8LYdyfxIs/view?usp=sharing",
   githubHref: "https://github.com/yuvrajtiwary-bitmesraece"
 };
 
