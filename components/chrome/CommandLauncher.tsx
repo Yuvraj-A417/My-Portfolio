@@ -62,7 +62,6 @@ export function CommandLauncher() {
       <div
         aria-label="Launch command center"
         className="command-panel"
-        data-lenis-prevent
         hidden={!isOpen}
         id="launch-command-panel"
         inert={!isOpen ? true : undefined}
