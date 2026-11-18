@@ -29,8 +29,9 @@ export function RevealText({
       ref={ref}
       className={className}
       style={style}
-      initial={reduceMotion ? false : { opacity: 0, y: 34, filter: "blur(18px)" }}
-      animate={reduceMotion || isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : undefined}
+      // Opacity + transform only: both run on the compositor, unlike an animated blur filter.
+      initial={reduceMotion ? false : { opacity: 0, y: 34 }}
+      animate={reduceMotion || isInView ? { opacity: 1, y: 0 } : undefined}
       transition={reduceMotion ? { duration: 0 } : { duration: 0.9, delay, ease: [0.16, 1, 0.3, 1] }}
     >
       {children}

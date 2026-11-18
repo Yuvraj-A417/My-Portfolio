@@ -125,13 +125,14 @@ function ProjectShowcase() {
       <RevealText className="project-case-study">
         <AnimatePresence mode="wait">
           <motion.div
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            animate={{ opacity: 1, y: 0 }}
             className="case-reel"
-            exit={{ opacity: 0, y: -14, filter: "blur(8px)" }}
-            initial={{ opacity: 0, y: 18, filter: "blur(10px)" }}
+            // Quick exit so the next project appears right after a click (mode="wait" runs exit, then enter).
+            exit={{ opacity: 0, y: -8, transition: { duration: 0.14, ease: "easeIn" } }}
+            initial={{ opacity: 0, y: 14 }}
             key={selectedProject.name}
             id={selectedProject.slug}
-            transition={{ duration: 0.34, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.26, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="case-meta-row">
               <span>{selectedProject.stack}</span>

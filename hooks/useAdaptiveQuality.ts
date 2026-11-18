@@ -21,7 +21,8 @@ export function useAdaptiveQuality(): QualityProfile {
 
   return {
     isCompact,
-    dpr: isCompact ? [1, 1] : [1, 1.25],
+    // The scene sits behind the content at low opacity most of the time, so native-resolution rendering is enough.
+    dpr: [1, 1],
     segments: isCompact ? 1 : 3
   };
 }
