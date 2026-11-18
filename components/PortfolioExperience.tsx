@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { useReducedMotion } from "framer-motion";
 import { CircuitBoard } from "lucide-react";
 import { memo, useEffect, useMemo, useRef, useState } from "react";
-import { useScrollProgress } from "@/hooks/useScrollProgress";
+import { useScrollProgress, useScrollSelector } from "@/hooks/useScrollProgress";
 import { SystemLoader } from "@/components/chrome/SystemLoader";
 import { BlueprintOverlay } from "@/components/chrome/BlueprintOverlay";
 import { GlobalNav } from "@/components/nav/GlobalNav";
@@ -54,28 +54,41 @@ function requestIdleWork(task: () => void, timeout = 1200) {
   return () => globalThis.clearTimeout(timer);
 }
 
+type DesktopScenePhase = "clear" | "peeking" | "dimmed";
+
+function getDesktopScenePhase(progress: number): DesktopScenePhase {
+  if (progress >= 0.315 && progress < 0.455) {
+    return "clear";
+  }
+
+  if ((progress >= 0.27 && progress < 0.315) || (progress >= 0.455 && progress < 0.465)) {
+    return "peeking";
+  }
+
+  return "dimmed";
+}
+
 export function PortfolioExperience() {
-  const progress = useScrollProgress();
+  // Scroll progress lives outside React state; only the scene phase below re-renders this component.
+  const scroll = useScrollProgress();
+  const desktopScenePhase = useScrollSelector(scroll, getDesktopScenePhase);
   const reduceMotion = useReducedMotion();
   const cursorAuraRef = useRef<HTMLDivElement>(null);
   const [isSceneReady, setIsSceneReady] = useState(false);
   const [isCompactViewport, setIsCompactViewport] = useState(false);
   const [mobileStackBeat, setMobileStackBeat] = useState({ focus: false, peeking: false });
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
-  const desktopStackSceneFocus = progress >= 0.315 && progress < 0.455;
-  const stackSceneFocus = isCompactViewport ? mobileStackBeat.focus : desktopStackSceneFocus;
+  const stackSceneFocus = isCompactViewport ? mobileStackBeat.focus : desktopScenePhase === "clear";
   const sceneIsClear = stackSceneFocus;
-  const desktopSceneIsPeeking =
-    (progress >= 0.27 && progress < 0.315) ||
-    (progress >= 0.455 && progress < 0.465);
-  const sceneIsPeeking = isCompactViewport ? mobileStackBeat.peeking && !mobileStackBeat.focus : desktopSceneIsPeeking;
-  const sceneProgress = isCompactViewport && mobileStackBeat.peeking ? 0.38 : progress;
+  const sceneIsPeeking = isCompactViewport
+    ? mobileStackBeat.peeking && !mobileStackBeat.focus
+    : desktopScenePhase === "peeking";
+  const sceneProgressOverride = isCompactViewport && mobileStackBeat.peeking ? 0.38 : null;
+  // Opacity only: a CSS blur on the full-screen WebGL layer had to be recomputed every scroll frame.
   const progressStyle = useMemo(
     () =>
       ({
-        "--scene-blur": sceneIsClear ? "0px" : sceneIsPeeking ? "2.4px" : "5px",
-        "--scene-opacity": sceneIsClear ? 0.9 : sceneIsPeeking ? 0.46 : 0.3,
-        "--scene-saturate": sceneIsClear ? 1.08 : sceneIsPeeking ? 0.86 : 0.64
+        "--scene-opacity": sceneIsClear ? 0.9 : sceneIsPeeking ? 0.42 : 0.24
       }) as React.CSSProperties,
     [sceneIsClear, sceneIsPeeking]
   );
@@ -95,10 +108,7 @@ export function PortfolioExperience() {
 
   useEffect(() => {
     if (!isCompactViewport) {
-      if (mobileStackBeat.focus || mobileStackBeat.peeking) {
-        setMobileStackBeat({ focus: false, peeking: false });
-      }
-
+      setMobileStackBeat((current) => (current.focus || current.peeking ? { focus: false, peeking: false } : current));
       return;
     }
 
@@ -108,13 +118,18 @@ export function PortfolioExperience() {
       return;
     }
 
-    const rect = stackFocusGap.getBoundingClientRect();
-    const viewportHeight = window.innerHeight || 1;
-    const focus = rect.top < viewportHeight * 0.72 && rect.bottom > viewportHeight * 0.26;
-    const peeking = rect.top < viewportHeight * 0.98 && rect.bottom > viewportHeight * 0.08;
+    const measure = () => {
+      const rect = stackFocusGap.getBoundingClientRect();
+      const viewportHeight = window.innerHeight || 1;
+      const focus = rect.top < viewportHeight * 0.72 && rect.bottom > viewportHeight * 0.26;
+      const peeking = rect.top < viewportHeight * 0.98 && rect.bottom > viewportHeight * 0.08;
 
-    setMobileStackBeat((current) => (current.focus === focus && current.peeking === peeking ? current : { focus, peeking }));
-  }, [isCompactViewport, mobileStackBeat.focus, mobileStackBeat.peeking, progress]);
+      setMobileStackBeat((current) => (current.focus === focus && current.peeking === peeking ? current : { focus, peeking }));
+    };
+
+    measure();
+    return scroll.subscribe(measure);
+  }, [isCompactViewport, scroll]);
 
   useEffect(() => {
     if (reduceMotion || isSceneReady) {
@@ -126,31 +141,39 @@ export function PortfolioExperience() {
     }
 
     const isCompact = window.matchMedia("(max-width: 760px), (pointer: coarse)").matches;
-    const scrollDepth = window.scrollY / Math.max(window.innerHeight, 1);
-    const shouldPreloadMobileScene = isCompact && scrollDepth >= 0.9;
-    const shouldMountMobileScene = isCompact && scrollDepth >= 1.25;
-    const shouldMountDesktopScene = !isCompact;
-
-    if (shouldPreloadMobileScene) {
-      loadCoreScene();
-    }
-
-    if (!shouldMountDesktopScene && !shouldMountMobileScene) {
-      return;
-    }
-
     const delay = isCompact ? 120 : 1000;
+    let timer: number | undefined;
     let cleanupIdle: (() => void) | null = null;
-    const timer = window.setTimeout(() => {
-      const cancelIdle = requestIdleWork(() => setIsSceneReady(true), isCompact ? 700 : 1200);
-      cleanupIdle = cancelIdle;
-    }, delay);
+
+    // Re-armed on every scroll update, so the scene mounts once scrolling has paused.
+    const scheduleMount = () => {
+      const scrollDepth = window.scrollY / Math.max(window.innerHeight, 1);
+
+      if (isCompact && scrollDepth >= 0.9) {
+        loadCoreScene();
+      }
+
+      if (isCompact && scrollDepth < 1.25) {
+        return;
+      }
+
+      window.clearTimeout(timer);
+      cleanupIdle?.();
+      cleanupIdle = null;
+      timer = window.setTimeout(() => {
+        cleanupIdle = requestIdleWork(() => setIsSceneReady(true), isCompact ? 700 : 1200);
+      }, delay);
+    };
+
+    scheduleMount();
+    const unsubscribe = scroll.subscribe(scheduleMount);
 
     return () => {
+      unsubscribe();
       window.clearTimeout(timer);
       cleanupIdle?.();
     };
-  }, [isSceneReady, progress, reduceMotion]);
+  }, [isSceneReady, reduceMotion, scroll]);
 
   useEffect(() => {
     const aura = cursorAuraRef.current;
@@ -203,16 +226,21 @@ export function PortfolioExperience() {
   return (
     <main className="portfolio-shell" style={progressStyle}>
       <MemoSystemLoader />
-      <GlobalNav progress={progress} />
+      <GlobalNav scroll={scroll} />
       <div className="scene-layer" aria-hidden="true">
         {reduceMotion || !isSceneReady ? (
           <StaticCore />
         ) : (
-          <CoreScene progress={sceneProgress} hoveredSkill={hoveredSkill} isActive={sceneIsClear} />
+          <CoreScene
+            scroll={scroll}
+            progressOverride={sceneProgressOverride}
+            hoveredSkill={hoveredSkill}
+            isActive={sceneIsClear}
+          />
         )}
       </div>
       <div className="cursor-aura" ref={cursorAuraRef} aria-hidden="true" />
-      <BlueprintOverlay progress={progress} />
+      <BlueprintOverlay scroll={scroll} />
 
       <MemoHeroSection />
       <MemoAboutSection />

@@ -1,7 +1,26 @@
-import { stages } from "@/data/portfolio";
+"use client";
 
-export function GlobalNav({ progress }: { progress: number }) {
-  const activeIndex = Math.min(stages.length - 1, Math.floor(progress * stages.length));
+import { useEffect, useRef } from "react";
+import { stages } from "@/data/portfolio";
+import { useScrollSelector, type ScrollProgressStore } from "@/hooks/useScrollProgress";
+
+const getActiveIndex = (progress: number) => Math.min(stages.length - 1, Math.floor(progress * stages.length));
+
+export function GlobalNav({ scroll }: { scroll: ScrollProgressStore }) {
+  const activeIndex = useScrollSelector(scroll, getActiveIndex);
+  const bar = useRef<HTMLSpanElement>(null);
+
+  // The progress bar moves every frame, so it is painted directly instead of through React state.
+  useEffect(() => {
+    const paint = (progress: number) => {
+      if (bar.current) {
+        bar.current.style.transform = `scaleX(${progress})`;
+      }
+    };
+
+    paint(scroll.get());
+    return scroll.subscribe(paint);
+  }, [scroll]);
 
   return (
     <nav className="global-nav" aria-label="Portfolio navigation">
@@ -22,7 +41,7 @@ export function GlobalNav({ progress }: { progress: number }) {
         ))}
       </div>
       <div className="nav-progress" aria-hidden="true">
-        <span style={{ transform: `scaleX(${progress})` }} />
+        <span ref={bar} style={{ transform: "scaleX(0)" }} />
       </div>
     </nav>
   );

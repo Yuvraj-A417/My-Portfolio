@@ -2,9 +2,41 @@
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState, useSyncExternalStore } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
+
+type ProgressListener = (progress: number) => void;
+
+/**
+ * Scroll progress (0..1) kept outside React state.
+ * Reading it never re-renders; components either subscribe for per-frame work
+ * (3D scene, progress bar) or use useScrollSelector to re-render only when a
+ * derived value changes (active nav stage, scene phase).
+ */
+export type ScrollProgressStore = {
+  get: () => number;
+  subscribe: (listener: ProgressListener) => () => void;
+};
+
+function createScrollProgressStore() {
+  let value = 0;
+  const listeners = new Set<ProgressListener>();
+
+  return {
+    get: () => value,
+    subscribe: (listener: ProgressListener) => {
+      listeners.add(listener);
+      return () => {
+        listeners.delete(listener);
+      };
+    },
+    set: (next: number) => {
+      value = next;
+      listeners.forEach((listener) => listener(next));
+    }
+  };
+}
 
 function preserveScrollDuring(task: () => void) {
   const currentY = window.scrollY;
@@ -22,16 +54,15 @@ function preserveScrollDuring(task: () => void) {
   });
 }
 
-export function useScrollProgress() {
-  const [progress, setProgress] = useState(0);
+export function useScrollProgress(): ScrollProgressStore {
+  const [store] = useState(createScrollProgressStore);
   const frame = useRef<number | null>(null);
   const latestProgress = useRef(0);
 
   useLayoutEffect(() => {
     const commitProgress = () => {
       frame.current = null;
-      setProgress(latestProgress.current);
-      document.documentElement.style.setProperty("--scroll-progress", String(latestProgress.current));
+      store.set(latestProgress.current);
     };
 
     let trigger: ScrollTrigger;
@@ -60,7 +91,19 @@ export function useScrollProgress() {
       }
       trigger?.kill();
     };
-  }, []);
+  }, [store]);
 
-  return progress;
+  return store;
+}
+
+/** Re-renders only when selector(progress) changes. The selector must return a primitive. */
+export function useScrollSelector<T extends string | number | boolean>(
+  store: ScrollProgressStore,
+  selector: (progress: number) => T
+): T {
+  return useSyncExternalStore(
+    store.subscribe,
+    () => selector(store.get()),
+    () => selector(0)
+  );
 }
